@@ -11,12 +11,13 @@ export function ThemePicker({ className }: {
   className?: string
 }) {
   const id = useId()
-  const [checked, setChecked] = useState(true)
-  const { setTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme();
+  const [checked, setChecked] = useState(() => resolvedTheme === 'dark');
   const mounted = useMounted();
 
   useEffect(() => {
-    setTheme(checked ? "dark" : "light");
+    if (!mounted) return
+    setTheme(checked ? 'dark' : 'light')
   }, [checked])
 
   if (!mounted) return null;
