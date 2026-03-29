@@ -207,7 +207,6 @@
   z-index: -1;
   border-radius: var(--radius-3xl);
   position: absolute;
-  filter: blur(2px);
   background: linear-gradient(
     135deg,
     oklch(from var(--primary) l c h / 0.3),
