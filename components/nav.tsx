@@ -14,7 +14,7 @@ import { HamburgerMenu } from "./hamburger-menu";
 
 export function Nav() {
   return (
-    <NavigationMenu className="justify-between w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-full lg:border lg:border-foreground/10 lg:px-8">
+    <NavigationMenu className="justify-between w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-full lg:border lg:border-foreground/10 md:px-8">
       <NavigationMenuLink asChild className="w-58 hover:bg-transparent">
         <Link href="/docs">
           <Typography size="h4" as="p" className="text-primary">

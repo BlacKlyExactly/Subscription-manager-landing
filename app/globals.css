@@ -196,18 +196,18 @@
 
 .hero{
   position: relative;
-  background: var(--card);
 }
 
 .hero:before {
   content: "";
   top: -1px;
   left: -1px;
-  width: calc(100% + 1px);
-  height: calc(100% + 1px);
+  width: calc(100% + 0px);
+  height: calc(100% + 2px);
   z-index: -1;
   border-radius: var(--radius-3xl);
   position: absolute;
+  filter: blur(2px);
   background: linear-gradient(
     135deg,
     oklch(from var(--primary) l c h / 0.3),
@@ -221,6 +221,14 @@
     oklch(from var(--primary) l c h / 0.5),
     oklch(from var(--foreground) l c h / 0.1) 35%
   );
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.tilt {
+  transform: rotateX(5deg);
 }
 
 @layer base {
