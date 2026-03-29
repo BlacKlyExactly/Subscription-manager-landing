@@ -1,65 +1,69 @@
+import { Button } from "@/components/ui/button";
+import { Main } from "@/components/ui/main";
+import { Typography } from "@/lib/components/ui/typography";
 import Image from "next/image";
+import cover from "@/assets/cover.png";
+import { Section } from "@/components/ui/section";
+import { Bell, CreditCard, Eye } from "lucide-react";
+import { BlurHighlight } from "@/components/ui/blur-highlight";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <Main>
+      <div className="text-center flex flex-col gap-7 items-center">
+        <Typography size="h1" className="lg:max-w-2xl mx-auto">
+          Twoje <span className="text-primary">subskrypcje</span> kosztują więcej niż myślisz.
+        </Typography>
+        <Typography size="p" className="lg:max-w-lg">
+          Zbierz wszystkie subskrypcje w jednym miejscu, śledź wydatki i przestań przepłacać.
+        </Typography>
+        <Button size="lg">Sprawdź ile przepłacasz</Button>
+      </div>
+      <div className="relative hero rounded-3xl shadow-2xl shadow-foreground/10 dark:shadow-black">
+        <BlurHighlight className="size-64 -left-8 -top-8" />
+        <Image alt="" src={cover} className="aspect-9/16 object-cover md:aspect-video rounded-3xl mt-16 card mb-8 dark:invert" />
+      </div>
+      <Section>
+        <div>
+          <Typography size="h2">
+            Jak to działa w <span className="text-primary">3 prostych</span> krokach
+          </Typography>
+          <Typography className="mt-3 lg:mt-0">Zacznij w kilka minut, oszczędzaj przez lata</Typography>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="mt-8 lg:mt-12 flex flex-col gap-4 items-center lg:flex-row">
+          <article className="card card-highlight-bl dark:shadow-black/10 sm:w-2/3 dark:shadow-none shadow-lg shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
+            <BlurHighlight className="-bottom-6 left-0 opacity-30!" />
+            <CreditCard className="text-primary size-13" />
+            <Typography size="h3" className="mt-4 mb-8">
+              Dodaj swoje subskrypcje
+            </Typography>
+            <Typography size="small">
+              Wpisz subskrypcje ręcznie lub wybierz z bazy popularnych serwisów. Cokolwiek płacisz cyklicznie – masz to w jednym miejscu.
+            </Typography>
+          </article>
+          <article className="card sm:w-2/3 shadow-lg dark:shadow-black/10 shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
+            <BlurHighlight className="-top-6 -left-6 opacity-20!" />
+            <Eye className="text-primary size-13" />
+            <Typography size="h3" className="mt-4 mb-8">
+              Obserwuj swoje wydatki
+            </Typography>
+            <Typography size="small">
+              Dashboard zsumuje wszystkie opłaty i pokaże ile wydajesz miesięcznie i rocznie. Żadna złotówka nie przecieknie niezauważona.
+            </Typography>
+          </article>
+          <article className="card card-highlight-tr sm:w-2/3 dark:shadow-black/10 shadow-lg shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
+            <Bell className="text-primary size-13" />
+            <Typography size="h3" className="mt-4 mb-8">
+              Reaguj na przypomnienia
+            </Typography>
+            <Typography size="small">
+              Dostaniesz powiadomienie zanim subskrypcja się odnowi. Masz czas zdecydować – zostać czy zrezygnować.
+            </Typography>
+            <BlurHighlight className="right-0 -top-6 opacity-30!" />
+          </article>
         </div>
-      </main>
-    </div>
+        <Button size="lg" className="mt-8">Zacznij już teraz</Button>
+      </Section>
+    </Main >
   );
 }
