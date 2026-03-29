@@ -8,7 +8,7 @@ import {
 } from "./ui/navigation-menu";
 import { Typography } from "@/lib/components/ui/typography";
 import { Button } from "./ui/button";
-import { Mail } from "lucide-react";
+import { Check, CreditCard, Mail } from "lucide-react";
 import { ThemePicker } from "./theme/theme-picker";
 import { HamburgerMenu } from "./hamburger-menu";
 
@@ -17,6 +17,7 @@ export function Nav() {
     <NavigationMenu className="justify-between w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-full lg:border lg:border-foreground/10 md:px-8">
       <NavigationMenuLink asChild className="w-58 hover:bg-transparent">
         <Link href="/docs">
+          <CreditCard className="text-primary size-6" />
           <Typography size="h4" as="p" className="text-primary">
             Logo
           </Typography>
