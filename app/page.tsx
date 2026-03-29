@@ -21,7 +21,7 @@ export default function Home() {
       </div>
       <div className="relative hero rounded-3xl shadow-2xl shadow-foreground/10 dark:shadow-black">
         <BlurHighlight className="size-64 -left-8 -top-8" />
-        <Image alt="" src={cover} className="aspect-9/16 object-cover md:aspect-video rounded-3xl mt-16 card mb-8 dark:invert" />
+        <Image alt="" loading="eager" src={cover} className="aspect-9/16 object-cover h-auto md:aspect-video rounded-3xl mt-16 card mb-8 dark:invert" />
       </div>
       <Section>
         <div>

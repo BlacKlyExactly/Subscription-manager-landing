@@ -39,11 +39,13 @@ export default function RootLayout({
         >
           <GridBackground />
           <TooltipProvider>
-            <header className="py-[1.15rem] px-6 lg:px-0 max-w-6xl mx-auto w-full flex justify-center">
+            <BlurHighlight className="-right-16 -top-18 size-64 opacity-20 hidden md:block" />
+            <header className="lg:py-[1.15rem] lg:px-0 max-w-6xl mx-auto w-full flex justify-center sticky top-0 z-10">
               <Nav />
             </header>
-            <BlurHighlight className="-right-16 -top-18 size-64 opacity-20" />
-            {children}
+            <div className="">
+              {children}
+            </div>
           </TooltipProvider>
         </ThemeProvider>
       </body>

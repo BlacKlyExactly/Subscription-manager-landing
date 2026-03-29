@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail, Menu, X } from "lucide-react";
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "./ui/drawer";
+import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { useState } from "react";
 import Link from "next/link";
 import { Typography } from "@/lib/components/ui/typography";
@@ -19,10 +19,12 @@ export function HamburgerMenu() {
         </button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerTitle className="sr-only">Menu</DrawerTitle>
-        <button className="ml-auto p-3" onClick={() => setIsOpen(false)} aria-label="Zamknij menu">
-          <X className="size-8" />
-        </button>
+        <DrawerHeader>
+          <DrawerTitle className="sr-only">Menu</DrawerTitle>
+          <button className="ml-auto p-3" onClick={() => setIsOpen(false)} aria-label="Zamknij menu">
+            <X className="size-8" />
+          </button>
+        </DrawerHeader>
         <div className="flex flex-col gap-4 text-right ml-auto pt-8 px-3">
           <Link href="/docs">
             <Typography size="h3">Strona główna</Typography>
@@ -34,13 +36,13 @@ export function HamburgerMenu() {
             <Typography size="h3">Cennik</Typography>
           </Link>
         </div>
-        <div className="mt-auto flex flex-col items-end gap-4">
+        <DrawerFooter className="mt-auto flex flex-col items-end gap-4">
           <ThemePicker />
           <Button size="lg" className="w-full">
             <Mail />
             Zaloguj się
           </Button>
-        </div>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )
