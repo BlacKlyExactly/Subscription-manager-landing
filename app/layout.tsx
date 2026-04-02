@@ -5,8 +5,7 @@ import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { BlurHighlight } from "@/components/ui/blur-highlight";
-import GridBackground from "@/components/ui/grid-background-demo";
+import { AnimatedGrid } from "@/components/ui/animated-grid-background";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -26,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pl"
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
       suppressHydrationWarning
     >
@@ -37,14 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <GridBackground />
+          <AnimatedGrid />
           <TooltipProvider>
             <header className="lg:py-[1.15rem] lg:px-0 max-w-6xl mx-auto w-full flex justify-center sticky top-0 z-10">
               <Nav />
             </header>
-            <div className="">
-              {children}
-            </div>
+            {children}
           </TooltipProvider>
         </ThemeProvider>
       </body>

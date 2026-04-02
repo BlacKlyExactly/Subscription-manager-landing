@@ -18,7 +18,7 @@ const textVariants = cva("font-sans text-foreground", {
       h3: "text-2xl font-semibold leading-8 tracking-[-0.006em]",
       h4: "text-xl font-semibold leading-7 tracking-[-0.005em]",
       p: "text-base font-normal leading-7 text-foreground/80",
-      blockquote: "text-base font-normal italic leading-6",
+      blockquote: "border-l-2 border-foreground/15 pl-4.5 text-base font-normal italic leading-6",
       li: "text-base font-normal leading-6",
       lead: "text-xl font-normal leading-7",
       large: "text-[1.125em] font-semibold leading-7",

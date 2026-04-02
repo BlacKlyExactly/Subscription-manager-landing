@@ -6,11 +6,14 @@ import cover from "@/assets/cover.png";
 import { Section } from "@/components/ui/section";
 import { Bell, CreditCard, Eye } from "lucide-react";
 import { BlurHighlight } from "@/components/ui/blur-highlight";
+import { HowItWorksCard } from "@/components/homepage/how-it-works-card";
+import { CroppedContainer } from "@/components/ui/cropped-container";
+import { TestimonialCarousel } from "@/components/homepage/testimonial-carousel";
 
 export default function Home() {
   return (
     <Main>
-      <div className="text-center flex flex-col gap-7 items-center">
+      <CroppedContainer className="text-center flex flex-col gap-7 items-center">
         <Typography size="h1" className="lg:max-w-2xl mx-auto">
           Twoje <span className="text-primary">subskrypcje</span> kosztują więcej niż myślisz.
         </Typography>
@@ -18,12 +21,12 @@ export default function Home() {
           Zbierz wszystkie subskrypcje w jednym miejscu, śledź wydatki i przestań przepłacać.
         </Typography>
         <Button size="lg">Sprawdź ile przepłacasz</Button>
-      </div>
-      <div className="group relative hero rounded-3xl">
+      </CroppedContainer>
+      <CroppedContainer className="group relative hero rounded-3xl mx-6 px-0 md:mx-auto md:px-6">
         <BlurHighlight className="size-64 -left-8 -top-8" />
         <Image alt="" loading="eager" src={cover}
-          className="shadow-2xl shadow-foreground/10 dark:shadow-none transform-[perspective(800px)_rotateX(9deg)_scale(0.97)] group-hover:transform-[perspective(800px)_rotateX(0deg)_scale(1)] [transform-style:preserve-3d] transition-all duration-500 ease-out hover:shadow-none aspect-9/16 object-cover h-auto md:aspect-video rounded-3xl mt-16 card mb-8 dark:invert" />
-      </div>
+          className="shadow-2xl shadow-foreground/10 dark:shadow-none transform-[perspective(800px)_rotateX(9deg)_scale(0.97)] aspect-9/16 object-cover h-auto md:aspect-video rounded-3xl mt-16 card mb-8 dark:invert" />
+      </CroppedContainer>
       <Section>
         <div>
           <Typography size="h2">
@@ -32,38 +35,45 @@ export default function Home() {
           <Typography className="mt-3 lg:mt-0">Zacznij w kilka minut, oszczędzaj przez lata</Typography>
         </div>
         <div className="mt-8 lg:mt-12 flex flex-col gap-4 items-center lg:flex-row">
-          <article className="card card-highlight-bl dark:shadow-black/10 sm:w-2/3 dark:shadow-none shadow-lg shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
+          <HowItWorksCard
+            highlight="bl"
+            icon={<CreditCard />}
+            title="Dodaj swoje subskrypcje"
+            description="Wpisz subskrypcje ręcznie lub wybierz z bazy popularnych serwisów. Cokolwiek płacisz cyklicznie – masz to w jednym miejscu."
+          >
             <BlurHighlight className="-bottom-6 left-0 opacity-30!" />
-            <CreditCard className="text-primary size-13" />
-            <Typography size="h3" className="mt-4 mb-8">
-              Dodaj swoje subskrypcje
-            </Typography>
-            <Typography size="small">
-              Wpisz subskrypcje ręcznie lub wybierz z bazy popularnych serwisów. Cokolwiek płacisz cyklicznie – masz to w jednym miejscu.
-            </Typography>
-          </article>
-          <article className="card sm:w-2/3 shadow-lg dark:shadow-black/10 shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
+          </HowItWorksCard>
+          <HowItWorksCard
+            highlight="tl"
+            icon={<Eye />}
+            title="Dodaj swoje subskrypcje"
+            description="Dashboard zsumuje wszystkie opłaty i pokaże ile wydajesz miesięcznie i rocznie. Żadna złotówka nie przecieknie niezauważona."
+          >
             <BlurHighlight className="-top-6 -left-6 opacity-20!" />
-            <Eye className="text-primary size-13" />
-            <Typography size="h3" className="mt-4 mb-8">
-              Obserwuj swoje wydatki
-            </Typography>
-            <Typography size="small">
-              Dashboard zsumuje wszystkie opłaty i pokaże ile wydajesz miesięcznie i rocznie. Żadna złotówka nie przecieknie niezauważona.
-            </Typography>
-          </article>
-          <article className="card card-highlight-tr sm:w-2/3 dark:shadow-black/10 shadow-lg shadow-foreground/5 px-6 py-7.5 lg:w-full rounded-3xl flex flex-col items-center">
-            <Bell className="text-primary size-13" />
-            <Typography size="h3" className="mt-4 mb-8">
-              Reaguj na przypomnienia
-            </Typography>
-            <Typography size="small">
-              Dostaniesz powiadomienie zanim subskrypcja się odnowi. Masz czas zdecydować – zostać czy zrezygnować.
-            </Typography>
+          </HowItWorksCard>
+
+          <HowItWorksCard
+            highlight="tr"
+            icon={<Bell />}
+            title="Dodaj swoje subskrypcje"
+            description="Dostaniesz powiadomienie zanim subskrypcja się odnowi. Masz czas zdecydować – zostać czy zrezygnować."
+          >
             <BlurHighlight className="right-0 -top-6 opacity-30!" />
-          </article>
+          </HowItWorksCard>
         </div>
         <Button size="lg" className="mt-8">Zacznij już teraz</Button>
+      </Section>
+      <Section disableCrop>
+        <CroppedContainer>
+          <Typography size="h2">
+            Opinie użytkowników
+          </Typography>
+          <Typography className="mt-3 lg:mt-0">Nie wierz nam na słowo – <span className="text-primary">posłuchaj innych</span></Typography>
+        </CroppedContainer>
+        <div className="mt-8 lg:mt-12 mx-auto">
+          <TestimonialCarousel />
+        </div>
+        <Button size="lg" className="mt-8">Dołącz do innych</Button>
       </Section>
     </Main >
   );
