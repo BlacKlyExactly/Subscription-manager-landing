@@ -54,7 +54,7 @@ export function PricingCard({
           ))}
         </ul>
       </div>
-      <Button size="lg" className={cn("w-fit", color === "primary" && "bg-white text-primary hover:bg-foreground/80")}>
+      <Button size="lg" className={cn("w-fit", color === "primary" && "bg-white text-primary hover:bg-white/85")}>
         {buttonText}
       </Button>
     </article>
