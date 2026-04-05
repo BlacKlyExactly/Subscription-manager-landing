@@ -9,6 +9,9 @@ import { BlurHighlight } from "@/components/ui/blur-highlight";
 import { HowItWorksCard } from "@/components/homepage/how-it-works-card";
 import { CroppedContainer } from "@/components/ui/cropped-container";
 import { TestimonialCarousel } from "@/components/homepage/testimonial-carousel";
+import { PricingCard } from "@/components/homepage/pricing-card";
+import { features } from "process";
+import { AnimatedGrid } from "@/components/ui/animated-grid-background";
 
 export default function Home() {
   return (
@@ -74,6 +77,45 @@ export default function Home() {
           <TestimonialCarousel />
         </div>
         <Button size="lg" className="mt-8">Dołącz do innych</Button>
+      </Section>
+      <Section disableCrop>
+        <AnimatedGrid />
+        <div>
+          <Typography size="h2">
+            Wybierz swój plan
+          </Typography>
+          <Typography className="mt-3 lg:mt-0">Zacznij <span className="text-primary">za darmo</span>, rozszerz gdy będziesz gotowy</Typography>
+        </div>
+        <div className="mt-8 lg:mt-12 flex flex-col md:flex-row items-center lg:justify-center gap-3">
+          <PricingCard
+            color="light"
+            title="Starter"
+            price={0}
+            description="Idealny na początek – bez zobowiązań."
+            features={[
+              "Do 5 subskrypcji",
+              "Podstawowe przypomnienia",
+              "Miesięczne podsumowanie"
+            ]}
+            buttonText="Zacznij za darmo"
+          >
+            <BlurHighlight className="absolute top-0 left-0" />
+          </PricingCard>
+          <PricingCard
+            color="primary"
+            price={19}
+            title="Pro"
+            description="Dla tych, którzy chcą mieć pełną kontrolę nad swoimi finansami."
+            features={[
+              "Nielimitowane subskrypcje",
+              "Przypomnienia i alerty",
+              "Szczegółowe statystyki i wykresy",
+              "Eksport danych",
+              "Wsparcie priorytetowe"
+            ]}
+            buttonText="Wypróbuj Pro"
+          />
+        </div>
       </Section>
     </Main >
   );

@@ -50,7 +50,7 @@ export function AnimatedGrid() {
       className="absolute -z-1 w-screen h-[50rem] top-0 left-0"
       style={{ position: 'absolute' }}
     >
-      <div className="pointer-events-none absolute inset-0 z-10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,var(--background))] bg-background" />
+      <div className="pointer-events-none absolute inset-0 z-10 [mask-image:radial-gradient(ellipse_at_center,transparent_10%,var(--background))] bg-background" />
     </div>
   );
 }
