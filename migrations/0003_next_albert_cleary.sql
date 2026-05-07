@@ -1,0 +1,1 @@
+ALTER TABLE "sm_users" ADD COLUMN "plan" varchar(20) DEFAULT 'starter' NOT NULL;

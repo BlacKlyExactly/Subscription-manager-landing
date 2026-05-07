@@ -6,8 +6,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { AnimatedGrid } from "@/components/ui/animated-grid-background";
+import { Toaster } from "@/components/ui/sonner";
+import { getCurrentUserQuery } from "@/queries";
+import { AuthProvider } from "@/components/auth/auth-context";
+import { Footer } from "@/components/footer";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,21 +19,24 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: '#432dd7'
+  themeColor: "#432dd7",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getCurrentUserQuery();
+
   return (
     <html
       lang="pl"
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background w-screen overflow-x-hidden">
+      <body className="min-h-screen flex flex-col bg-background w-screen overflow-x-hidden">
+        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -38,10 +45,13 @@ export default function RootLayout({
         >
           <AnimatedGrid />
           <TooltipProvider>
-            <header className="lg:py-[1.15rem] lg:px-0 max-w-6xl mx-auto w-full flex justify-center sticky top-0 z-10">
-              <Nav />
-            </header>
-            {children}
+            <AuthProvider initialUser={user}>
+              <header className="lg:py-[1.15rem] lg:px-0 max-w-5xl mx-auto w-full flex justify-center sticky top-0 z-10">
+                <Nav />
+              </header>
+              {children}
+              <Footer />
+            </AuthProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>

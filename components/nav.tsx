@@ -6,42 +6,69 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "./ui/navigation-menu";
-import { Typography } from "@/lib/components/ui/typography";
+import { Typography } from "@/components/ui/typography";
 import { Button } from "./ui/button";
-import { Check, CreditCard, Mail } from "lucide-react";
+import { CreditCard, LayoutDashboard, Mail } from "lucide-react";
 import { ThemePicker } from "./theme/theme-picker";
 import { HamburgerMenu } from "./hamburger-menu";
+import { useAuth } from "./auth/auth-context";
+import { UserNav } from "./auth/user-nav";
+import { ProBadge } from "./pro-badge";
 
 export function Nav() {
+  const { user } = useAuth();
+
   return (
-    <NavigationMenu className="justify-between w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-full lg:border lg:border-foreground/10 md:px-8">
-      <NavigationMenuLink asChild className="w-58 hover:bg-transparent">
-        <Link href="/docs">
+    <NavigationMenu className="flex justify-between lg:grid lg:grid-cols-3 w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-4xl lg:border lg:border-foreground/10 md:px-8">
+      <NavigationMenuLink asChild className="hover:bg-transparent!">
+        <Link href="/">
           <CreditCard className="text-background/70 dark:text-background/40 fill-primary size-6" />
           <Typography size="h4" as="p" className="text-primary">
             Logo
           </Typography>
         </Link>
       </NavigationMenuLink>
-      <NavigationMenuList className="hidden lg:flex">
+      <NavigationMenuList className="hidden lg:flex justify-center shrink-0">
         <NavigationMenuLink asChild>
-          <Link href="/docs">Strona główna</Link>
+          <Link href="/">Strona główna</Link>
         </NavigationMenuLink>
         <NavigationMenuLink asChild>
-          <Link href="/docs">Funkcje</Link>
+          <Link href="#">O nas</Link>
         </NavigationMenuLink>
-        <NavigationMenuLink asChild>
-          <Link href="/docs">Cennik</Link>
-        </NavigationMenuLink>
+        {user?.plan === "pro" ? (
+          <NavigationMenuLink>
+            Przejdź na <ProBadge />
+          </NavigationMenuLink>
+        ) : (
+          <NavigationMenuLink>
+            <span className="bg-primary text-white p-0.75 rounded-md">
+              <CreditCard className="size-3" />
+            </span>
+            Twój plan
+          </NavigationMenuLink>
+        )}
       </NavigationMenuList>
-      <NavigationMenuList className="gap-4">
+      <NavigationMenuList className="gap-4 justify-end">
         <ThemePicker className="hidden lg:inline-flex" />
-        <Button>
-          <Mail />
-          Zaloguj się
-        </Button>
-        <HamburgerMenu />
+        {user ? (
+          <>
+            <UserNav />
+            <Link href="/dashboard">
+              <Button size="icon">
+                <LayoutDashboard />
+              </Button>
+            </Link>
+          </>
+        ) : (
+          <Link href="/login">
+            <Button>
+              <Mail />
+              Zaloguj się
+            </Button>
+          </Link>
+        )}
+        <HamburgerMenu user={user} />
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }

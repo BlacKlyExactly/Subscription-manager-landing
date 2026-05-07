@@ -1,4 +1,4 @@
-import { Typography } from "@/lib/components/ui/typography";
+import { Typography } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority"
 import { Button } from "../ui/button";

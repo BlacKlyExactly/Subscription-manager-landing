@@ -1,7 +1,6 @@
-import { Typography } from "@/lib/components/ui/typography";
+import { Typography } from "@/components/ui/typography";
 import { Quote, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
 
 type TestimonialProps = {
   quote: string;
