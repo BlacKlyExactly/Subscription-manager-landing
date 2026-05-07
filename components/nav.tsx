@@ -39,14 +39,14 @@ export function Nav() {
           <NavigationMenuLink>
             Przejdź na <ProBadge />
           </NavigationMenuLink>
-        ) : (
+        ) : !!user ? (
           <NavigationMenuLink>
             <span className="bg-primary text-white p-0.75 rounded-md">
               <CreditCard className="size-3" />
             </span>
             Twój plan
           </NavigationMenuLink>
-        )}
+        ) : null}
       </NavigationMenuList>
       <NavigationMenuList className="gap-4 justify-end">
         <ThemePicker className="hidden lg:inline-flex" />
