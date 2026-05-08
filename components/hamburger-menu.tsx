@@ -14,7 +14,7 @@ import Link from "next/link";
 import { Typography } from "@/components/ui/typography";
 import { Button } from "./ui/button";
 import { ThemePicker } from "./theme/theme-picker";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { logoutAction } from "@/actions/logout";
 import { useAuth } from "./auth/auth-context";
@@ -35,6 +35,7 @@ export function HamburgerMenu({ user }: HamburgerMenuProps) {
   const [isPending, startTransition] = useTransition();
   const { setUser } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const close = () => setIsOpen(false);
 
@@ -70,20 +71,20 @@ export function HamburgerMenu({ user }: HamburgerMenuProps) {
 
         <div className="flex flex-col gap-4 text-right ml-auto pt-8 px-3">
           <Link href="/" onClick={close}>
-            <Typography size="h3">Strona główna</Typography>
+            <Typography size="h3" className={pathname === "/" ? "text-primary" : ""}>Strona główna</Typography>
           </Link>
           <Link href="/contact" onClick={close}>
-            <Typography size="h3">Kontakt</Typography>
+            <Typography size="h3" className={pathname === "/contact" ? "text-primary" : ""}>Kontakt</Typography>
           </Link>
           {user && (
             <>
               <Link href="/dashboard" onClick={close}>
-                <Typography size="h3" className="text-primary">
+                <Typography size="h3" className={pathname === "/dashboard" ? "text-primary" : ""}>
                   Panel
                 </Typography>
               </Link>
               <Link href="/dashboard/billing" onClick={close}>
-                <Typography size="h3" className="text-primary">
+                <Typography size="h3" className={pathname === "/dashboard/billing" ? "text-primary" : ""}>
                   Twój plan
                 </Typography>
               </Link>
