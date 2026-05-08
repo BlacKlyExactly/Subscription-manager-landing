@@ -36,7 +36,7 @@ export const sessionsTable = pgTable(prefixedTable("sessions"), {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: integer()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   tokenHash: varchar().notNull().unique(),
   expireAt: timestamp().notNull(),
   createdAt: timestamp().defaultNow().notNull(),
