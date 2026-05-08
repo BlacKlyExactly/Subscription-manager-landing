@@ -39,7 +39,6 @@ export const RenewalReminder = ({
       <Head>
         <BarebonesFonts />
       </Head>
-
       <Body className="bg-bg-2 m-0 text-center font-sans">
         <Preview>
           {subscriptions.length === 1
@@ -101,7 +100,6 @@ export const RenewalReminder = ({
                     </Row>
                   </Section>
                 ))}
-
                 <Section className="mt-8 mb-6 text-center">
                   <Button
                     href={dashboardUrl}
@@ -110,7 +108,6 @@ export const RenewalReminder = ({
                     Przejdź do dashboardu
                   </Button>
                 </Section>
-
                 <Text className="font-13 text-fg-3 mx-auto mt-8 mb-0 max-w-[400px] text-center font-sans">
                   Możesz wstrzymać lub anulować subskrypcję w dowolnym momencie
                   z poziomu dashboardu.

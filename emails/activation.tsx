@@ -42,36 +42,17 @@ export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
         <Container className="mobile:mt-0 mx-auto mt-8 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg mobile:px-2 px-6 py-4">
-              <Section className="mb-3 px-6">
-                <Row>
-                  <Column className="w-1/2 py-[7px] align-middle">
-                    <Row>
-                      <Column className="w-[32px] align-middle">
-                        <Img
-                          src={`${baseUrl}/static/shared/logo-black.png`}
-                          alt=""
-                          width={23}
-                          className="block"
-                        />
-                      </Column>
-                    </Row>
-                  </Column>
-                </Row>
-              </Section>
-
               <Section className="bg-bg-2 mobile:px-6 mobile:py-12 rounded-[8px] px-[40px] py-[64px] text-center">
                 <Section className="mb-3">
                   <Heading as="h1" className="font-28 text-fg m-0 font-sans">
                     Już prawie gotowe!
                   </Heading>
                 </Section>
-
                 <Text className="font-16 text-fg-2 mx-auto mt-0 mb-8 max-w-[380px] text-center font-sans">
                   Dziękujemy za rejestrację w {companyName}.
                   <br />
                   Aby zweryfikować konto, musimy potwierdzić twój adres email.
                 </Text>
-
                 <Section className="mb-6 text-center">
                   <Button
                     href={url}
@@ -80,7 +61,6 @@ export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
                     Potwierdź email
                   </Button>
                 </Section>
-
                 <Text className="font-13 text-fg-3 mx-auto mt-8 mb-0 max-w-[400px] text-center font-sans">
                   Jeśli nie tworzyłeś konta
                   <br />
