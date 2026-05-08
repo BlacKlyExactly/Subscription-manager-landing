@@ -44,7 +44,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <main className="flex-1 flex items-center justify-center pb-8">
+    <main className="flex-1 flex items-center justify-center pb-8 pt-8 md:pt-0 px-4 md:px-0">
       <Card className="max-w-sm w-full bg-background">
         <CardHeader>
           <CardTitle className="text-primary">Zarejestruj się</CardTitle>

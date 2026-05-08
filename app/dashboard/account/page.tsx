@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { getCurrentUserQuery } from "@/queries";
+
+export const metadata: Metadata = { title: "Ustawienia konta" };
 import { redirect } from "next/navigation";
 import { AccountSettings } from "@/components/dashboard/account-settings";
 

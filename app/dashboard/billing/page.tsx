@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { getCurrentUserQuery, getSubscriptionsQuery } from "@/queries";
+
+export const metadata: Metadata = { title: "Twój plan" };
 import { redirect } from "next/navigation";
 import { BillingPlan } from "@/components/dashboard/billing-plan";
 import type { Plan } from "@/lib/drizzle/schema";

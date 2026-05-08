@@ -46,7 +46,7 @@ export async function CodeBlock({ children, lang = "text" }: Props) {
   const dot = LANG_COLORS[lang] ?? "#6b7280";
 
   return (
-    <div className="rounded-xl border border-foreground/10 overflow-hidden text-xs">
+    <div className="rounded-xl border border-foreground/10 overflow-hidden text-xs min-w-0 w-full">
       <div className="flex items-center justify-between px-4 py-2 bg-muted/60 border-b border-foreground/10">
         <div className="flex items-center gap-2">
           <span

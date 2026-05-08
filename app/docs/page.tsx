@@ -8,9 +8,11 @@ export const metadata = {
 
 export default async function DocsPage() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16 flex flex-col gap-12 flex-1">
+    <main className="max-w-screen lg:max-w-4xl mx-auto px-6 py-16 flex flex-col gap-12 flex-1 overflow-x-hidden">
       <div className="space-y-3">
-        <Typography size="h1">Dokumentacja techniczna</Typography>
+        <Typography size="h1" className="text-3xl md:text-5xl">
+          Dokumentacja techniczna
+        </Typography>
         <Typography className="text-muted-foreground">
           SubTracker — aplikacja do zarządzania subskrypcjami cyfrowymi. Projekt
           demonstracyjny.
@@ -98,44 +100,48 @@ export default async function DocsPage() {
         </SubSection>
       </Section>
       <Section id="stack" title="2. Stack technologiczny">
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="border-b border-foreground/10">
-              <th className="text-left py-2 pr-4 font-semibold">Warstwa</th>
-              <th className="text-left py-2 pr-4 font-semibold">Technologia</th>
-              <th className="text-left py-2 font-semibold">Wersja</th>
-            </tr>
-          </thead>
-          <tbody className="text-foreground/80">
-            {[
-              ["Framework", "Next.js (App Router)", "16.2.1"],
-              ["UI Library", "React", "19.2.4"],
-              ["Język", "TypeScript", "^5"],
-              ["Stylowanie", "Tailwind CSS", "^4"],
-              ["Komponenty UI", "shadcn/ui + Radix UI", "—"],
-              ["ORM", "Drizzle ORM", "^0.45"],
-              ["Baza danych", "PostgreSQL (przez node-postgres)", "^8.20"],
-              ["Haszowanie haseł", "Argon2", "^0.44"],
-              ["Walidacja", "Zod", "^4.4"],
-              ["Formularze", "React Hook Form", "^7.75"],
-              ["Wykresy", "Recharts", "^3.8"],
-              ["E-mail wysyłka", "Resend", "^6.12"],
-              ["E-mail szablony", "React Email", "^6.0"],
-              ["Toasty", "Sonner", "^2.0"],
-              ["Drawer/modal", "Vaul", "^1.1"],
-              ["Karuzela", "Embla Carousel", "^8.6"],
-              ["Ikony", "Lucide React", "^1.7"],
-            ].map(([layer, tech, version]) => (
-              <tr key={layer} className="border-b border-foreground/5">
-                <td className="py-2 pr-4 font-medium">{layer}</td>
-                <td className="py-2 pr-4">{tech}</td>
-                <td className="py-2 font-mono text-xs text-muted-foreground">
-                  {version}
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-foreground/10">
+                <th className="text-left py-2 pr-4 font-semibold">Warstwa</th>
+                <th className="text-left py-2 pr-4 font-semibold">
+                  Technologia
+                </th>
+                <th className="text-left py-2 font-semibold">Wersja</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="text-foreground/80">
+              {[
+                ["Framework", "Next.js (App Router)", "16.2.1"],
+                ["UI Library", "React", "19.2.4"],
+                ["Język", "TypeScript", "^5"],
+                ["Stylowanie", "Tailwind CSS", "^4"],
+                ["Komponenty UI", "shadcn/ui + Radix UI", "—"],
+                ["ORM", "Drizzle ORM", "^0.45"],
+                ["Baza danych", "PostgreSQL (przez node-postgres)", "^8.20"],
+                ["Haszowanie haseł", "Argon2", "^0.44"],
+                ["Walidacja", "Zod", "^4.4"],
+                ["Formularze", "React Hook Form", "^7.75"],
+                ["Wykresy", "Recharts", "^3.8"],
+                ["E-mail wysyłka", "Resend", "^6.12"],
+                ["E-mail szablony", "React Email", "^6.0"],
+                ["Toasty", "Sonner", "^2.0"],
+                ["Drawer/modal", "Vaul", "^1.1"],
+                ["Karuzela", "Embla Carousel", "^8.6"],
+                ["Ikony", "Lucide React", "^1.7"],
+              ].map(([layer, tech, version]) => (
+                <tr key={layer} className="border-b border-foreground/5">
+                  <td className="py-2 pr-4 font-medium">{layer}</td>
+                  <td className="py-2 pr-4">{tech}</td>
+                  <td className="py-2 font-mono text-xs text-muted-foreground">
+                    {version}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
       <Section id="structure" title="3. Struktura projektu">
         <Typography>
@@ -472,32 +478,34 @@ VERCEL_URL=twoja-domena.vercel.app`}</CodeBlock>
         </SubSection>
       </Section>
       <Section id="plans" title="8. Plany i limitowanie funkcji">
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="border-b border-foreground/10">
-              <th className="text-left py-2 pr-4 font-semibold">Funkcja</th>
-              <th className="text-left py-2 pr-4 font-semibold">Starter</th>
-              <th className="text-left py-2 font-semibold">Pro</th>
-            </tr>
-          </thead>
-          <tbody className="text-foreground/80">
-            {[
-              ["Limit subskrypcji", "5", "Nielimitowane"],
-              ["Statystyki (karty)", "✓", "✓"],
-              ["Wykresy (kategorie, koszty)", "✗ (zablokowane)", "✓"],
-              ["Oś czasu odnowień", "✗ (zablokowane)", "✓"],
-              ["Eksport CSV", "✗ (toast z info)", "✓"],
-              ["Przypomnienia e-mail", "✓", "✓"],
-              ["Zmiana planu", "✓ (demo)", "✓ (demo)"],
-            ].map(([feature, starter, pro]) => (
-              <tr key={feature} className="border-b border-foreground/5">
-                <td className="py-2 pr-4 font-medium">{feature}</td>
-                <td className="py-2 pr-4">{starter}</td>
-                <td className="py-2">{pro}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-foreground/10">
+                <th className="text-left py-2 pr-4 font-semibold">Funkcja</th>
+                <th className="text-left py-2 pr-4 font-semibold">Starter</th>
+                <th className="text-left py-2 font-semibold">Pro</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="text-foreground/80">
+              {[
+                ["Limit subskrypcji", "5", "Nielimitowane"],
+                ["Statystyki (karty)", "✓", "✓"],
+                ["Wykresy (kategorie, koszty)", "✗ (zablokowane)", "✓"],
+                ["Oś czasu odnowień", "✗ (zablokowane)", "✓"],
+                ["Eksport CSV", "✗ (toast z info)", "✓"],
+                ["Przypomnienia e-mail", "✓", "✓"],
+                ["Zmiana planu", "✓ (demo)", "✓ (demo)"],
+              ].map(([feature, starter, pro]) => (
+                <tr key={feature} className="border-b border-foreground/5">
+                  <td className="py-2 pr-4 font-medium">{feature}</td>
+                  <td className="py-2 pr-4">{starter}</td>
+                  <td className="py-2">{pro}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <SubSection title="Implementacja limitów">
           <Typography>
             <strong>Limit subskrypcji (Starter):</strong> w{" "}
@@ -610,11 +618,11 @@ Result.error(message)  // → ErrorResult`}</CodeBlock>
             key={action.name}
             className="border border-foreground/10 rounded-xl p-4 space-y-1"
           >
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              <code className="text-sm font-mono text-primary">
+            <div className="flex flex-col gap-1">
+              <code className="text-sm font-mono text-primary break-all">
                 {action.name}
               </code>
-              <span className="text-xs text-muted-foreground font-mono">
+              <span className="text-xs text-muted-foreground font-mono break-all">
                 {action.file}
               </span>
             </div>
@@ -736,9 +744,11 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
             key={s.name}
             className="border border-foreground/10 rounded-xl p-4 space-y-1"
           >
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              <code className="text-sm font-mono text-primary">{s.name}</code>
-              <span className="text-xs text-muted-foreground font-mono">
+            <div className="flex flex-col gap-1">
+              <code className="text-sm font-mono text-primary break-all">
+                {s.name}
+              </code>
+              <span className="text-xs text-muted-foreground font-mono break-all">
                 {s.file}
               </span>
             </div>
@@ -890,38 +900,40 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
           Plik <Code>lib/subscription-templates.ts</Code> zawiera 30+
           predefiniowanych serwisów z cenami (PLN) i wariantami planów.
         </Typography>
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="border-b border-foreground/10">
-              <th className="text-left py-2 pr-4 font-semibold">Kategoria</th>
-              <th className="text-left py-2 font-semibold">Serwisy</th>
-            </tr>
-          </thead>
-          <tbody className="text-foreground/80">
-            {[
-              [
-                "Streaming",
-                "Netflix, Disney+, Max, Amazon Prime, Apple TV+, YouTube Premium, Paramount+",
-              ],
-              ["Muzyka", "Spotify, Apple Music, Tidal, YouTube Music"],
-              [
-                "Software",
-                "Microsoft 365, Adobe CC, ChatGPT, GitHub Copilot, Notion, Canva, iCloud+, Google One, 1Password",
-              ],
-              [
-                "Gry",
-                "PlayStation Plus, Xbox Game Pass, EA Play, Nintendo Switch Online",
-              ],
-              ["Newsy", "Polityka, Gazeta Wyborcza, Kindle Unlimited"],
-              ["Fitness", "Strava, Garmin Connect+, Whoop"],
-            ].map(([cat, services]) => (
-              <tr key={cat} className="border-b border-foreground/5">
-                <td className="py-2 pr-4 font-medium">{cat}</td>
-                <td className="py-2 text-muted-foreground">{services}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-foreground/10">
+                <th className="text-left py-2 pr-4 font-semibold">Kategoria</th>
+                <th className="text-left py-2 font-semibold">Serwisy</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="text-foreground/80">
+              {[
+                [
+                  "Streaming",
+                  "Netflix, Disney+, Max, Amazon Prime, Apple TV+, YouTube Premium, Paramount+",
+                ],
+                ["Muzyka", "Spotify, Apple Music, Tidal, YouTube Music"],
+                [
+                  "Software",
+                  "Microsoft 365, Adobe CC, ChatGPT, GitHub Copilot, Notion, Canva, iCloud+, Google One, 1Password",
+                ],
+                [
+                  "Gry",
+                  "PlayStation Plus, Xbox Game Pass, EA Play, Nintendo Switch Online",
+                ],
+                ["Newsy", "Polityka, Gazeta Wyborcza, Kindle Unlimited"],
+                ["Fitness", "Strava, Garmin Connect+, Whoop"],
+              ].map(([cat, services]) => (
+                <tr key={cat} className="border-b border-foreground/5">
+                  <td className="py-2 pr-4 font-medium">{cat}</td>
+                  <td className="py-2 text-muted-foreground">{services}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <Typography className="text-sm text-muted-foreground">
           Każdy serwis zawiera: nazwę, emoji, kategorię oraz listę pakietów
           (nazwa pakietu, cena w PLN, cykl rozliczeniowy).
@@ -983,7 +995,7 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="space-y-5 scroll-mt-24">
+    <section id={id} className="space-y-5 scroll-mt-24 min-w-0 w-full">
       <Typography size="h2" className="border-b border-foreground/10 pb-3">
         {title}
       </Typography>
@@ -1021,7 +1033,7 @@ function List({ items }: { items: string[] }) {
 
 function Code({ children }: { children: ReactNode }) {
   return (
-    <code className="text-sm bg-muted px-1.5 py-0.5 rounded font-mono text-primary">
+    <code className="text-sm bg-muted px-1.5 py-0.5 rounded font-mono text-primary break-all">
       {children}
     </code>
   );

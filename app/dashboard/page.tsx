@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { getCurrentUserQuery, getSubscriptionsQuery } from "@/queries";
+
+export const metadata: Metadata = { title: "Panel" };
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { SubscriptionList } from "@/components/dashboard/subscription-list";
 import { AddSubscriptionSheet } from "@/components/dashboard/add-subscription-sheet";
