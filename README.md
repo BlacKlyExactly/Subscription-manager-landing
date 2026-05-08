@@ -29,7 +29,7 @@ Aplikacja do śledzenia subskrypcji cyfrowych. Projekt demonstracyjny — żadne
 **Wymagania:** Node.js 18+, PostgreSQL 14+, konto Resend
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/BlacKlyExactly/Subscription-manager-landing
 cd subscription-manager
 bun install
 cp .env.example .env.local   # uzupełnij wartości
