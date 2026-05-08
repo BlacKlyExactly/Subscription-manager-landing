@@ -98,6 +98,7 @@ export function AddSubscriptionSheet({ subscription }: SubscriptionSheetProps) {
       : {
           billingCycle: "monthly",
           category: "other",
+          nextRenewalDate: "",
         },
   });
 
@@ -257,7 +258,6 @@ export function AddSubscriptionSheet({ subscription }: SubscriptionSheetProps) {
               )}
             />
           </div>
-
           <div className="grid gap-2">
             <Label>Data następnej odnowy *</Label>
             <Controller
