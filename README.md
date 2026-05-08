@@ -49,6 +49,7 @@ Skopiuj `.env.example` do `.env.local` i uzupełnij:
 | `RESEND_API_KEY` | Klucz API Resend (wysyłka e-maili) |
 | `CRON_SECRET` | Sekret chroniący endpoint `/api/cron/reminders` |
 | `DISCORD_WEBHOOK_URL` | Webhook Discord dla formularza kontaktowego |
+| `NEXT_PUBLIC_APP_URL` | Link do domeny produkcyjnej
 
 ## Cron job
 
