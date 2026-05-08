@@ -58,7 +58,7 @@ export function SubscriptionItem({ sub }: { sub: Subscription }) {
       className={cn(
         "transition-opacity",
         !sub.isActive && "opacity-50",
-        isPending && "opacity-40 pointer-events-none",
+        isPending && "animate-pulse pointer-events-none",
       )}
     >
       <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 sm:py-3">

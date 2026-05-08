@@ -33,20 +33,26 @@ export function Nav() {
           <Link href="/">Strona główna</Link>
         </NavigationMenuLink>
         <NavigationMenuLink asChild>
-          <Link href="#">O nas</Link>
+          <Link href="/contact">Kontakt</Link>
         </NavigationMenuLink>
-        {user?.plan === "pro" ? (
-          <NavigationMenuLink>
-            Przejdź na <ProBadge />
+        {!!user && (
+          <NavigationMenuLink asChild>
+            <Link href="/dashboard/billing">
+              {user.plan !== "pro" ? (
+                <>
+                  Przejdź na <ProBadge />
+                </>
+              ) : (
+                <>
+                  <span className="bg-primary text-white p-0.75 rounded-md">
+                    <CreditCard className="size-3" />
+                  </span>
+                  Twój plan
+                </>
+              )}
+            </Link>
           </NavigationMenuLink>
-        ) : !!user ? (
-          <NavigationMenuLink>
-            <span className="bg-primary text-white p-0.75 rounded-md">
-              <CreditCard className="size-3" />
-            </span>
-            Twój plan
-          </NavigationMenuLink>
-        ) : null}
+        )}
       </NavigationMenuList>
       <NavigationMenuList className="gap-4 justify-end">
         <ThemePicker className="hidden lg:inline-flex" />

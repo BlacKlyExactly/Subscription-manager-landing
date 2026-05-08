@@ -17,8 +17,8 @@ export function Footer() {
     {
       heading: "Produkt",
       items: [
-        { label: "O nas", href: "/about-us" },
         { label: "Panel", href: "/dashboard" },
+        { label: "Kontakt", href: "/contact" },
       ],
     },
     {
@@ -33,6 +33,7 @@ export function Footer() {
       items: [
         { label: "Polityka prywatności", href: "/privacy" },
         { label: "Regulamin", href: "/terms" },
+        { label: "Dokumentacja", href: "/docs" },
       ],
     },
   ];
@@ -44,7 +45,14 @@ export function Footer() {
           Przejdź na <ProBadge />
         </>
       ),
-      href: "/register",
+      href: "/dashboard/billing",
+    });
+  }
+
+  if (user?.plan === "pro") {
+    LINKS[0].items.push({
+      label: "Twój plan",
+      href: "/dashboard/billing",
     });
   }
 

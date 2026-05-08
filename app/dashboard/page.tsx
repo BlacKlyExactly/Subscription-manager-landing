@@ -6,6 +6,7 @@ import { ExportButton } from "@/components/dashboard/export-button";
 import { CategoryChart } from "@/components/dashboard/charts/category-chart";
 import { CostChart } from "@/components/dashboard/charts/cost-chart";
 import { RenewalTimeline } from "@/components/dashboard/charts/renewal-timeline";
+import { ProChartGate } from "@/components/dashboard/charts/pro-chart-gate";
 import { Typography } from "@/components/ui/typography";
 
 export default async function DashboardPage() {
@@ -37,11 +38,19 @@ export default async function DashboardPage() {
         </div>
         <StatsCards subscriptions={subs} />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <CategoryChart subscriptions={subs} />
-        <CostChart subscriptions={subs} />
-      </div>
-      <RenewalTimeline subscriptions={subs} />
+      {user?.plan === "pro" ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CategoryChart subscriptions={subs} />
+            <CostChart subscriptions={subs} />
+          </div>
+          <RenewalTimeline subscriptions={subs} />
+        </>
+      ) : (
+        <div className="grid grid-cols-1">
+          <ProChartGate />
+        </div>
+      )}
       <SubscriptionList subscriptions={subs} />
     </main>
   );

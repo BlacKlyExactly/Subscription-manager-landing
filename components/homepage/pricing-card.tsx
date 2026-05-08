@@ -1,20 +1,24 @@
 import { Typography } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
-import { cva, VariantProps } from "class-variance-authority"
+import { cva, VariantProps } from "class-variance-authority";
 import { Button } from "../ui/button";
 import { ReactNode } from "react";
+import Link from "next/link";
 
-const pricingCardVariants = cva("relative p-8 rounded-3xl max-w-88 w-full text-left min-h-124.5 flex flex-col justify-between", {
-  variants: {
-    color: {
-      light: "bg-card card card-highlight-tl",
-      primary: "bg-primary border border-primary"
-    }
+const pricingCardVariants = cva(
+  "relative p-8 rounded-3xl max-w-88 w-full text-left min-h-124.5 flex flex-col justify-between",
+  {
+    variants: {
+      color: {
+        light: "bg-card card card-highlight-tl",
+        primary: "bg-primary/5 backdrop-blur-2xl border border-primary",
+      },
+    },
+    defaultVariants: {
+      color: "light",
+    },
   },
-  defaultVariants: {
-    color: "light"
-  }
-})
+);
 
 type PricingCardProps = VariantProps<typeof pricingCardVariants> & {
   className?: string;
@@ -24,6 +28,7 @@ type PricingCardProps = VariantProps<typeof pricingCardVariants> & {
   features: string[];
   buttonText: string;
   children?: ReactNode;
+  icon?: ReactNode;
 };
 
 export function PricingCard({
@@ -34,29 +39,67 @@ export function PricingCard({
   buttonText,
   features,
   price,
-  children
+  icon,
+  children,
 }: PricingCardProps) {
   return (
     <article className={cn(pricingCardVariants({ color }), className)}>
       {children}
       <div>
-        <Typography size="h2" as="h3" className={cn(color === "light" ? "text-primary" : "text-white")}>{title}</Typography>
-        <Typography className={cn("leading-5 mt-2 max-w-[75%]", color === "light" ? "text-foreground" : "text-white")}>{description}</Typography>
+        <div className="flex items-center gap-2">
+          {icon}
+          <Typography
+            size="h2"
+            as="h3"
+            className={cn(
+              color === "primary" ? "text-primary" : "text-foreground",
+            )}
+          >
+            {title}
+          </Typography>
+        </div>
+        <Typography
+          size="small"
+          className={cn("leading-5 mt-4 max-w-[75%] text-foreground")}
+        >
+          {description}
+        </Typography>
         <div className="py-8 flex gap-2 items-end">
-          <Typography className={cn("font-semibold text-2xl leading-6", color === "light" ? "text-foreground" : "text-white")}>
+          <Typography
+            className={cn("font-semibold text-3xl leading-6 text-foreground")}
+          >
             {price} zł
           </Typography>
-          <Typography className={cn("text-xs leading-4.5", color === "primary" && "text-white")}>/miesięcznie</Typography>
+          <Typography className={cn("text-xs text-foreground/50")}>
+            /miesięcznie
+          </Typography>
         </div>
-        <ul className={cn("space-y-2 list-disc list-inside", color === "light" && "marker:text-primary")}>
+        <ul
+          className={cn(
+            "space-y-2 list-disc list-inside",
+            color === "primary" && "marker:text-primary",
+          )}
+        >
           {features.map((feature) => (
-            <Typography size="li" className={cn("text-sm w-full", color === "primary" && "text-white")} key={feature}>{feature}</Typography>
+            <Typography
+              size="li"
+              className={cn("text-sm w-full text-foreground")}
+              key={feature}
+            >
+              {feature}
+            </Typography>
           ))}
         </ul>
       </div>
-      <Button size="lg" className={cn("w-fit", color === "primary" && "bg-white text-primary hover:bg-white/85")}>
-        {buttonText}
+      <Button
+        size="lg"
+        className={cn("w-fit")}
+        variant={color === "light" ? "outline" : "default"}
+      >
+        <Link href={color === "primary" ? "/login?trypro=true" : "/login"}>
+          {buttonText}
+        </Link>
       </Button>
     </article>
-  )
+  );
 }

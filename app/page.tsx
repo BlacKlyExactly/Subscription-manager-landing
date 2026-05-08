@@ -9,7 +9,7 @@ import coverMobileDark from "@/assets/cover-mobile-dark.png";
 import coverDesktopLight from "@/assets/cover-desktop-light.png";
 import coverMobileLight from "@/assets/cover-mobile-light.png";
 import { Section } from "@/components/ui/section";
-import { Bell, CreditCard, Eye } from "lucide-react";
+import { Bell, CreditCard, Eye, Zap } from "lucide-react";
 import { BlurHighlight } from "@/components/ui/blur-highlight";
 import { HowItWorksCard } from "@/components/homepage/how-it-works-card";
 import { CroppedContainer } from "@/components/ui/cropped-container";
@@ -20,6 +20,7 @@ import { useTheme } from "next-themes";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { FAQ } from "@/components/homepage/faq";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
@@ -51,7 +52,9 @@ export default function Home() {
           Zbierz wszystkie subskrypcje w jednym miejscu, śledź wydatki i
           przestań przepłacać.
         </Typography>
-        <Button size="lg">Sprawdź ile przepłacasz</Button>
+        <Link href="/dashboard">
+          <Button size="lg">Sprawdź ile przepłacasz</Button>
+        </Link>
       </CroppedContainer>
       <CroppedContainer className="group relative hero rounded-3xl mx-6 px-0 md:mx-auto md:px-6">
         <BlurHighlight className="size-64 -left-8 -top-8" />
@@ -101,9 +104,11 @@ export default function Home() {
             <BlurHighlight className="right-0 -top-6 opacity-30!" />
           </HowItWorksCard>
         </div>
-        <Button size="lg" className="mt-8">
-          Zacznij już teraz
-        </Button>
+        <Link href="/login">
+          <Button size="lg" className="mt-8">
+            Zacznij już teraz
+          </Button>
+        </Link>
       </Section>
       <Section disableCrop>
         <CroppedContainer>
@@ -116,9 +121,11 @@ export default function Home() {
         <div className="mt-8 lg:mt-12 mx-auto">
           <TestimonialCarousel />
         </div>
-        <Button size="lg" className="mt-8">
-          Dołącz do innych
-        </Button>
+        <Link href="/login">
+          <Button size="lg" className="mt-8">
+            Dołącz do innych
+          </Button>
+        </Link>
       </Section>
       <Section disableCrop>
         <AnimatedGrid />
@@ -129,7 +136,7 @@ export default function Home() {
             będziesz gotowy
           </Typography>
         </div>
-        <div className="mt-8 lg:mt-12 flex flex-col md:flex-row items-center lg:justify-center gap-3 px-6">
+        <div className="mt-8 lg:mt-12 flex flex-col md:flex-row items-center justify-center gap-3 px-6">
           <PricingCard
             color="light"
             title="Starter"
@@ -148,6 +155,7 @@ export default function Home() {
             color="primary"
             price={19}
             title="Pro"
+            icon={<Zap className="size-5 text-primary fill-primary" />}
             description="Dla tych, którzy chcą mieć pełną kontrolę nad swoimi finansami."
             features={[
               "Nielimitowane subskrypcje",

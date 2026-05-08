@@ -21,13 +21,16 @@ import { useTransition } from "react";
 import { loginAction } from "@/actions";
 import { toast } from "sonner";
 import { Submit } from "@/components/ui/submit";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/auth/auth-context";
 
 const LoginPage = () => {
   const { setUser } = useAuth();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const tryPro = !!searchParams.get("trypro");
 
   const {
     register,
@@ -47,7 +50,7 @@ const LoginPage = () => {
       }
 
       setUser(result.data);
-      router.replace("/dashboard");
+      router.replace(tryPro ? "/dashboard/billing" : "/dashboard");
     });
   };
 

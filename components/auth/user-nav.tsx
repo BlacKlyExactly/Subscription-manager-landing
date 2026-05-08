@@ -15,7 +15,7 @@ import { useTransition } from "react";
 import { logoutAction } from "@/actions/logout";
 import { Submit } from "../ui/submit";
 import Link from "next/link";
-import { LayoutDashboard } from "lucide-react";
+import { CreditCard, LayoutDashboard, Settings } from "lucide-react";
 
 const getInitials = (name: string) => {
   return name
@@ -65,6 +65,24 @@ export const UserNav = () => {
           >
             <LayoutDashboard className="size-4" />
             Panel
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            href="/dashboard/billing"
+            className="flex items-center gap-2 w-full cursor-pointer"
+          >
+            <CreditCard className="size-4" />
+            Twój plan
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            href="/dashboard/account"
+            className="flex items-center gap-2 w-full cursor-pointer"
+          >
+            <Settings className="size-4" />
+            Ustawienia konta
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator className="my-2" />

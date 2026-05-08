@@ -15,10 +15,6 @@ import {
 import { barebonesBoxedTailwindConfig } from "./theme";
 import { BarebonesFonts } from "./theme/theme-fonts";
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 export interface ReminderSubscription {
   name: string;
   emoji: string | null;
@@ -116,8 +112,8 @@ export const RenewalReminder = ({
                 </Section>
 
                 <Text className="font-13 text-fg-3 mx-auto mt-8 mb-0 max-w-[400px] text-center font-sans">
-                  Możesz wstrzymać lub anulować subskrypcję w dowolnym
-                  momencie z poziomu dashboardu.
+                  Możesz wstrzymać lub anulować subskrypcję w dowolnym momencie
+                  z poziomu dashboardu.
                 </Text>
               </Section>
             </Section>

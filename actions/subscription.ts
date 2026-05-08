@@ -15,7 +15,7 @@ export const createSubscriptionAction = async (
   data: z.input<typeof subscriptionFormSchema>,
 ) => {
   const user = await getCurrentUserQuery();
-  if (!user) return Result.error("Nie jesteś zalogowany", 401);
+  if (!user) return Result.error("Nie jesteś zalogowany");
 
   const parsed = subscriptionFormSchema.safeParse(data);
   if (!parsed.success) return Result.error("Błąd przy weryfikowaniu danych");
@@ -33,7 +33,6 @@ export const createSubscriptionAction = async (
       if (total >= STARTER_LIMIT) {
         return Result.error(
           `Plan Starter pozwala na maksymalnie ${STARTER_LIMIT} subskrypcji. Przejdź na Pro, aby dodać więcej.`,
-          403,
         );
       }
     }
@@ -62,7 +61,7 @@ export const createSubscriptionAction = async (
 
 export const deleteSubscriptionAction = async (id: number) => {
   const user = await getCurrentUserQuery();
-  if (!user) return Result.error("Nie jesteś zalogowany", 401);
+  if (!user) return Result.error("Nie jesteś zalogowany");
 
   try {
     await db
@@ -87,7 +86,7 @@ export const updateSubscriptionAction = async (
   data: z.input<typeof subscriptionFormSchema>,
 ) => {
   const user = await getCurrentUserQuery();
-  if (!user) return Result.error("Nie jesteś zalogowany", 401);
+  if (!user) return Result.error("Nie jesteś zalogowany");
 
   const parsed = subscriptionFormSchema.safeParse(data);
   if (!parsed.success) return Result.error("Błąd przy weryfikowaniu danych");
@@ -124,7 +123,7 @@ export const updateSubscriptionAction = async (
 
 export const toggleSubscriptionAction = async (id: number, isActive: boolean) => {
   const user = await getCurrentUserQuery();
-  if (!user) return Result.error("Nie jesteś zalogowany", 401);
+  if (!user) return Result.error("Nie jesteś zalogowany");
 
   try {
     await db

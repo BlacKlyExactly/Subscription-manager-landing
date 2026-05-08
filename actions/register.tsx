@@ -49,7 +49,7 @@ export const registerAction = async (data: RegisterFormProps) => {
       from: "SubTracker <konto@answermouse.com>",
       react: (
         <ConfirmEmail
-          companyName="Subscription manager"
+          companyName="SubTracker"
           url={`${baseUrl}/verify/${activationToken}`}
         />
       ),

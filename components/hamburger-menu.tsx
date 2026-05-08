@@ -72,18 +72,22 @@ export function HamburgerMenu({ user }: HamburgerMenuProps) {
           <Link href="/" onClick={close}>
             <Typography size="h3">Strona główna</Typography>
           </Link>
-          <Link href="/#features" onClick={close}>
-            <Typography size="h3">Funkcje</Typography>
-          </Link>
-          <Link href="/#pricing" onClick={close}>
-            <Typography size="h3">Cennik</Typography>
+          <Link href="/contact" onClick={close}>
+            <Typography size="h3">Kontakt</Typography>
           </Link>
           {user && (
-            <Link href="/dashboard" onClick={close}>
-              <Typography size="h3" className="text-primary">
-                Panel
-              </Typography>
-            </Link>
+            <>
+              <Link href="/dashboard" onClick={close}>
+                <Typography size="h3" className="text-primary">
+                  Panel
+                </Typography>
+              </Link>
+              <Link href="/dashboard/billing" onClick={close}>
+                <Typography size="h3" className="text-primary">
+                  Twój plan
+                </Typography>
+              </Link>
+            </>
           )}
         </div>
 

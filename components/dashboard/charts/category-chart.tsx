@@ -3,12 +3,12 @@
 import {
   PieChart,
   Pie,
-  Cell,
   Tooltip,
   ResponsiveContainer,
   Legend,
   PieSectorShapeProps,
   Sector,
+  LegendProps,
 } from "recharts";
 import type { Subscription } from "@/queries";
 import {
@@ -60,7 +60,7 @@ export function CategoryChart({ subscriptions }: CategoryChartProps) {
         {isEmpty ? (
           <p className="text-sm text-muted-foreground py-10">Brak danych</p>
         ) : (
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={260}>
             <PieChart>
               <Pie
                 data={data}
@@ -83,8 +83,20 @@ export function CategoryChart({ subscriptions }: CategoryChartProps) {
               <Legend
                 iconType="circle"
                 iconSize={8}
-                formatter={(value) => (
-                  <span style={{ fontSize: "12px" }}>{value}</span>
+                content={() => (
+                  <div className="w-full gap-4 flex justify-center items-center flex-wrap">
+                    {data.map(({ name, color }) => (
+                      <div className="flex gap-1 items-center" key={name}>
+                        <div
+                          className="size-2 rounded-full"
+                          style={{ background: color }}
+                        />
+                        <span style={{ fontSize: "12px", color: color }}>
+                          {name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 )}
               />
             </PieChart>
@@ -97,4 +109,8 @@ export function CategoryChart({ subscriptions }: CategoryChartProps) {
 
 const CustomPie = (props: PieSectorShapeProps) => {
   return <Sector {...props} fill={props.color} />;
+};
+
+const CustomLegend = (props: LegendProps) => {
+  return <div>xd</div>;
 };

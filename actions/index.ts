@@ -9,7 +9,7 @@ import {
 } from "./subscription";
 
 export type OkResult<T> = { success: true; data: T };
-export type ErrorResult = { success: false; error: string; code: number };
+export type ErrorResult = { success: false; error: string };
 export type ActionResult<T> = OkResult<T> | ErrorResult;
 
 export const Result = {
@@ -18,10 +18,9 @@ export const Result = {
       success: true,
       data,
     }) as const,
-  error: (error: string, code: number = 400): ErrorResult => ({
+  error: (error: string): ErrorResult => ({
     success: false,
     error,
-    code,
   }),
 };
 

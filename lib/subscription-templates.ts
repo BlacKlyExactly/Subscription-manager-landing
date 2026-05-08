@@ -2,7 +2,7 @@ import type { Category, BillingCycle } from "@/lib/drizzle/schema";
 
 export type Pack = {
   name: string;
-  price: number; // in PLN
+  price: number;
   billingCycle: BillingCycle;
 };
 
@@ -14,7 +14,6 @@ export type ServiceTemplate = {
 };
 
 export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
-  // Streaming
   {
     name: "Netflix",
     emoji: "🎬",
@@ -81,7 +80,6 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
       { name: "Premium", price: 29.99, billingCycle: "monthly" },
     ],
   },
-  // Music
   {
     name: "Spotify",
     emoji: "🎵",
@@ -121,7 +119,6 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
       { name: "Rodzinny", price: 35.99, billingCycle: "monthly" },
     ],
   },
-  // Software
   {
     name: "Microsoft 365",
     emoji: "💼",
@@ -207,7 +204,6 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
       { name: "Families", price: 26, billingCycle: "monthly" },
     ],
   },
-  // Gaming
   {
     name: "PlayStation Plus",
     emoji: "🎮",
@@ -242,12 +238,15 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
     emoji: "🕹️",
     category: "gaming",
     packs: [
-      { name: "Individual (miesięcznie)", price: 9.99, billingCycle: "monthly" },
+      {
+        name: "Individual (miesięcznie)",
+        price: 9.99,
+        billingCycle: "monthly",
+      },
       { name: "Individual (rocznie)", price: 79.99, billingCycle: "yearly" },
       { name: "Family (rocznie)", price: 139.99, billingCycle: "yearly" },
     ],
   },
-  // News
   {
     name: "Polityka",
     emoji: "📰",
@@ -270,11 +269,8 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
     name: "Kindle Unlimited",
     emoji: "📚",
     category: "news",
-    packs: [
-      { name: "Miesięcznie", price: 29.99, billingCycle: "monthly" },
-    ],
+    packs: [{ name: "Miesięcznie", price: 29.99, billingCycle: "monthly" }],
   },
-  // Fitness
   {
     name: "Strava",
     emoji: "🏃",
@@ -297,9 +293,7 @@ export const SUBSCRIPTION_TEMPLATES: ServiceTemplate[] = [
     name: "Whoop",
     emoji: "💪",
     category: "fitness",
-    packs: [
-      { name: "Membership", price: 99, billingCycle: "monthly" },
-    ],
+    packs: [{ name: "Membership", price: 99, billingCycle: "monthly" }],
   },
 ];
 

@@ -56,7 +56,7 @@ export function CostChart({ subscriptions }: CostChartProps) {
         {isEmpty ? (
           <p className="text-sm text-muted-foreground py-10">Brak danych</p>
         ) : (
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={260}>
             <BarChart
               data={data}
               layout="vertical"
@@ -78,6 +78,7 @@ export function CostChart({ subscriptions }: CostChartProps) {
                 tickLine={false}
               />
               <Tooltip
+                labelClassName="text-black"
                 formatter={(value) => [formatPLN(Number(value)), "Miesięcznie"]}
                 contentStyle={{
                   borderRadius: "12px",

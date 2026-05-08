@@ -99,7 +99,7 @@ export function EmojiPicker({ value, onChange }: EmojiPickerProps) {
           </TabsList>
           {EMOJI_GROUPS.map((group) => (
             <TabsContent key={group.label} value={group.label} className="mt-3">
-              <div className="flex flex-wrap gap-1">
+              <div className="grid grid-cols-10 gap-1 w-full">
                 {group.emojis.map((emoji) => (
                   <button
                     key={emoji}

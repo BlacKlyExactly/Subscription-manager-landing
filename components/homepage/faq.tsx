@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Typography } from "@/components/ui/typography";
+import Link from "next/link";
 
 const FAQ_ITEMS = [
   {
@@ -25,7 +26,7 @@ const FAQ_ITEMS = [
   {
     question: "Jak działają przypomnienia o odnowieniu?",
     answer:
-      "Aplikacja pokazuje nadchodzące odnowienia w ciągu 7 dni bezpośrednio na dashboardzie. Subskrypcje zbliżające się do daty odnowienia są wyróżnione kolorem, dzięki czemu zawsze wiesz, co zostanie pobrane w najbliższym czasie.",
+      "Na 3 dni przed odnowieniem subskrypcji wysyłamy e-mail z przypomnieniem. Dodatkowo dashboard pokazuje wszystkie subskrypcje odnawiające się w ciągu najbliższych 7 dni, dzięki czemu zawsze wiesz, co zostanie pobrane w najbliższym czasie.",
   },
   {
     question: "Czy mogę wstrzymać subskrypcję zamiast ją usuwać?",
@@ -46,9 +47,9 @@ export function FAQ() {
         <Typography size="h2">Często zadawane pytania</Typography>
         <Typography className="mt-2">
           Nie znalazłeś odpowiedzi?{" "}
-          <a href="mailto:kontakt@example.com" className="text-primary underline">
+          <Link href="/contact" className="text-primary underline">
             Napisz do nas
-          </a>
+          </Link>
         </Typography>
       </div>
       <Accordion type="single" collapsible>

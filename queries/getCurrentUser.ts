@@ -18,7 +18,13 @@ export const getCurrentUserQuery = async () => {
     where: eq(sessionsTable.tokenHash, sessionHash),
   });
 
-  if (!session || session.expireAt < new Date()) return null;
+  if (!session) return null;
+
+  if (session.expireAt < new Date()) {
+    await db.delete(sessionsTable).where(eq(sessionsTable.id, session.id));
+    jar.delete("session");
+    return null;
+  }
 
   const user = await db.query.usersTable.findFirst({
     where: eq(usersTable.id, session.userId),
