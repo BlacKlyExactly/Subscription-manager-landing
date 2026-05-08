@@ -19,7 +19,7 @@ export function Nav() {
   const { user } = useAuth();
 
   return (
-    <NavigationMenu className="flex justify-between lg:grid lg:grid-cols-3 w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-4xl lg:border lg:border-foreground/10 md:px-8">
+    <NavigationMenu className="flex justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] w-full max-w-none px-6 md:px-0 md:max-w-6xl z-10 dark:bg-background/30 bg-background/50 py-3 lg:py-2 backdrop-blur-2xl lg:rounded-4xl lg:border lg:border-foreground/10 md:px-8">
       <NavigationMenuLink asChild className="hover:bg-transparent!">
         <Link href="/">
           <CreditCard className="text-background/70 dark:text-background/40 fill-primary size-6" />
@@ -28,7 +28,7 @@ export function Nav() {
           </Typography>
         </Link>
       </NavigationMenuLink>
-      <NavigationMenuList className="hidden lg:flex justify-center shrink-0">
+      <NavigationMenuList className="hidden lg:flex justify-center">
         <NavigationMenuLink asChild>
           <Link href="/">Strona główna</Link>
         </NavigationMenuLink>
@@ -54,7 +54,7 @@ export function Nav() {
           </NavigationMenuLink>
         )}
       </NavigationMenuList>
-      <NavigationMenuList className="gap-4 justify-end">
+      <NavigationMenuList className="gap-4 justify-end justify-self-end">
         <ThemePicker className="hidden lg:inline-flex" />
         {user ? (
           <>

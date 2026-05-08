@@ -53,6 +53,8 @@ export const hashToken = (token: string) =>
 export const getExpiryHours = (hours: number) =>
   new Date(Date.now() + 1000 * 60 * 60 * hours);
 
-export const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+export const baseUrl =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");

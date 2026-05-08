@@ -245,12 +245,14 @@ CRON_SECRET=twoj-losowy-sekret
 # Discord Webhook URL — formularz kontaktowy
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
 
-# Opcjonalne: automatycznie wykrywane przez Next.js na Vercel
-VERCEL_URL=twoja-domena.vercel.app`}</CodeBlock>
+# Wymagane: URL produkcyjny aplikacji (np. https://twoja-domena.com)
+NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
         <Typography className="text-muted-foreground text-sm">
           Na produkcji (Vercel) zmienne konfiguruje się w panelu projektu →
           Settings → Environment Variables.
-          <Code>VERCEL_URL</Code> jest ustawiane automatycznie przez platformę.
+          <Code>NEXT_PUBLIC_APP_URL</Code> powinno wskazywać na Twoją domenę
+          produkcyjną. Bez tej zmiennej aplikacja może przekierowywać na
+          automatycznie generowany URL Vercela zamiast na Twoją domenę.
         </Typography>
       </Section>
       <Section id="schema" title="5. Schemat bazy danych">

@@ -9,9 +9,11 @@ import {
 } from "@/emails/renewal-reminder";
 import { render } from "@react-email/render";
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const baseUrl =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
 
 function formatPLN(grosze: number) {
   return new Intl.NumberFormat("pl-PL", {
