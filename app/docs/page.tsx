@@ -951,7 +951,8 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
         </SubSection>
         <SubSection title="Kroki">
           <CodeBlock lang="bash">{`# 1. Klonuj repozytorium
-git clone <repo-url>
+git clone https://github.com/BlacKlyExactly/Subscription-manager-landing
+
 cd subscription-manager
 
 # 2. Zainstaluj zależności
