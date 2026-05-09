@@ -28,6 +28,7 @@ export default async function DocsPage() {
             "Zod",
             "Argon2",
             "Resend",
+            "OGL",
           ].map((t) => (
             <Badge key={t}>{t}</Badge>
           ))}
@@ -61,6 +62,8 @@ export default async function DocsPage() {
           ["21. Deployment (Vercel)", "#deployment"],
           ["22. SEO i Metadata", "#seo"],
           ["23. Typy TypeScript", "#types"],
+          ["24. Custom Hooks", "#hooks"],
+          ["25. Animowane tło (WebGL / GLSL)", "#webgl"],
         ].map(([label, href]) => (
           <a
             key={href}
@@ -460,6 +463,7 @@ export default async function DocsPage() {
                 ["Karuzela", "Embla Carousel", "^8.6"],
                 ["Ikony", "Lucide React", "^1.7"],
                 ["Tryb ciemny", "next-themes", "^0.4"],
+                ["WebGL", "OGL", "^1.0.11"],
               ].map(([layer, tech, version]) => (
                 <tr key={layer} className="border-b border-foreground/5">
                   <td className="py-2 pr-4 font-medium">{layer}</td>
@@ -932,7 +936,8 @@ export const Result = {
             fn: "loginAction",
             params: ["data: LoginFormProps"],
             file: "actions/login.ts",
-            returns: "OkResult<{ id, name, email, activated, plan }> | ErrorResult",
+            returns:
+              "OkResult<{ id, name, email, activated, plan }> | ErrorResult",
             desc: "Walidacja → znajdź usera → argon2.verify → sprawdź activated → INSERT session → set cookie → return user bez passwordHash.",
           },
           {
@@ -1767,6 +1772,185 @@ type ContactFormInput = {
   email: string
   message: string
 }`}</CodeBlock>
+        </SubSection>
+      </Section>
+      <Section id="hooks" title="24. Custom Hooks">
+        <Typography>
+          Projekt definiuje trzy własne hooki React w katalogu{" "}
+          <Code>hooks/</Code>.
+        </Typography>
+        {[
+          {
+            fn: "useShader",
+            params: ["fragment: string"],
+            file: "hooks/use-shader.ts",
+            desc: "Tworzy renderer WebGL (OGL) wypełniający element-kontener, kompiluje przekazany fragment shader GLSL i uruchamia pętlę animacji przez requestAnimationFrame. Automatycznie aktualizuje uniformy przy zmianie rozmiaru (ResizeObserver) i przełączeniu motywu (MutationObserver na <html>). Zwraca ref, który należy przypiąć do elementu-kontenera. Po odmontowaniu komponentu zwalnia kontekst WebGL, odłącza observery i anuluje pętlę.",
+          },
+          {
+            fn: "useIsMobile",
+            params: [],
+            file: "hooks/use-mobile.ts",
+            desc: "Zwraca true gdy szerokość okna jest mniejsza niż 768 px. Używa matchMedia — reaguje na zmianę rozmiaru okna bez nasłuchiwania zdarzenia resize. Używany w komponentach nawigacji do warunkowego renderowania menu hamburger.",
+          },
+          {
+            fn: "useMounted",
+            params: [],
+            file: "hooks/use-mounted.ts",
+            desc: "Zwraca false podczas SSR i pierwszego renderowania, true po zamontowaniu komponentu po stronie klienta. Zapobiega błędom hydratacji w miejscach gdzie wartość zależy od środowiska klienta (np. motyw systemowy, wymiary okna).",
+          },
+        ].map((item) => (
+          <div
+            key={item.fn}
+            className="border border-foreground/10 rounded-xl p-4 space-y-1"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-mono text-primary break-all">
+                {item.fn}(
+                {item.params.map((p, i) => (
+                  <span key={p}>
+                    <Code>{p}</Code>
+                    {i < item.params.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+                )
+              </span>
+              <span className="text-xs text-muted-foreground font-mono break-all">
+                {item.file}
+              </span>
+            </div>
+            <Typography className="text-sm text-muted-foreground">
+              {item.desc}
+            </Typography>
+          </div>
+        ))}
+        <SubSection title="Uniformy useShader">
+          <Typography>
+            Shader otrzymuje następujące uniformy automatycznie zarządzane przez
+            hook:
+          </Typography>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-foreground/10">
+                  <th className="text-left py-2 pr-4 font-semibold">Uniform</th>
+                  <th className="text-left py-2 pr-4 font-semibold">
+                    Typ GLSL
+                  </th>
+                  <th className="text-left py-2 font-semibold">Opis</th>
+                </tr>
+              </thead>
+              <tbody className="text-foreground/80">
+                {[
+                  [
+                    "iTime",
+                    "float",
+                    "Czas w sekundach od uruchomienia animacji",
+                  ],
+                  [
+                    "iResolution",
+                    "vec2",
+                    "Rozmiar canvasu w pikselach (uwzględnia DPR)",
+                  ],
+                  ["iBg", "vec3", "Kolor CSS --background jako RGB (0–1)"],
+                  ["iFg", "vec3", "Kolor CSS --foreground jako RGB (0–1)"],
+                  ["iPrimary", "vec3", "Kolor CSS --primary jako RGB (0–1)"],
+                  [
+                    "isDark",
+                    "int",
+                    "1 jeśli aktywny tryb ciemny, 0 dla jasnego",
+                  ],
+                ].map(([u, t, d]) => (
+                  <tr key={u} className="border-b border-foreground/5">
+                    <td className="py-2 pr-4 font-mono text-primary">{u}</td>
+                    <td className="py-2 pr-4 font-mono text-xs text-muted-foreground">
+                      {t}
+                    </td>
+                    <td className="py-2 text-muted-foreground">{d}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Typography className="text-sm text-muted-foreground">
+            Kolory CSS są odczytywane przez pomocniczą funkcję{" "}
+            <Code>getCssColor(variable)</Code>, która tworzy tymczasowy element
+            DOM, rozwiązuje wartość zmiennej przez <Code>getComputedStyle</Code>{" "}
+            i parsuje wynikowy format <Code>rgb(r, g, b)</Code> do tablicy{" "}
+            <Code>[0–1, 0–1, 0–1]</Code>.
+          </Typography>
+        </SubSection>
+      </Section>
+      <Section id="webgl" title="25. Animowane tło (WebGL / GLSL)">
+        <Typography>
+          Komponent <Code>AnimatedGrid</Code> (
+          <Code>components/ui/animated-grid-background.tsx</Code>) renderuje
+          animowane tło siatki na stronie głównej za pomocą WebGL.
+        </Typography>
+        <SubSection title="Biblioteka OGL">
+          <Typography>
+            Renderowanie opiera się na bibliotece <strong>OGL</strong> —
+            minimalnym wrapperze nad WebGL bez zależności. Używane klasy:{" "}
+            <Code>Renderer</Code> (kontekst WebGL), <Code>Program</Code>{" "}
+            (kompilacja shaderów + uniformy), <Code>Mesh</Code> +{" "}
+            <Code>Triangle</Code> (pełnoekranowy trójkąt pokrywający viewport,
+            standardowa technika shader-quad).
+          </Typography>
+        </SubSection>
+        <SubSection title="Fragment shader — AnimatedGrid">
+          <CodeBlock lang="glsl">{`precision highp float;
+uniform float iTime;
+uniform vec2  iResolution;
+uniform vec3  iBg;
+uniform vec3  iFg;
+uniform vec3  iPrimary;
+uniform int   isDark;
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+  // Normalizacja UV: środek ekranu = (0,0), zakres ~[-0.5, 0.5]
+  vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
+
+  // Odległość Czebyszewa od środka → koncentryczne kwadraty
+  float d = max(abs(uv.x), abs(uv.y));
+
+  // Animowana fala kosinusowa — "ring" ∈ [0, 1]
+  float ring = 0.5 + 0.5 * cos(7.0 * d - iTime * 3.0);
+
+  // Interpolacja koloru linia siatki: foreground → primary
+  vec3 color = mix(iFg, iPrimary, ring);
+
+  // Siatka 12×12 przez fract — grid ∈ [0, 1)
+  vec2 grid = fract(uv * 12.0);
+
+  // Szerokość linii różna dla dark/light
+  float w = isDark == 1 ? 0.005 : 0.0065;
+
+  // Wykrycie krawędzi komórki: 1.0 na linii, 0.0 w środku
+  float border =
+    step(grid.x, w) + step(1.0 - w, grid.x) +
+    step(grid.y, w) + step(1.0 - w, grid.y);
+  border = clamp(border, 0.0, 1.0);
+
+  // Przezroczystość: linie są ledwo widoczne poza falą, jasne w jej środku
+  float baseOpacity = isDark == 1 ? 0.4  : 0.1;
+  float ringOpacity = isDark == 1 ? 1.0  : 0.6;
+  float opacity = mix(baseOpacity, ringOpacity, ring);
+
+  // Tylko piksele na linii siatki są widoczne (border jako maska)
+  fragColor = border * vec4(color, opacity);
+}
+
+void main() {
+  mainImage(gl_FragColor, gl_FragCoord.xy);
+}`}</CodeBlock>
+        </SubSection>
+        <SubSection title="Komponent AnimatedGrid">
+          <Typography>
+            Client Component. Montuje <Code>useShader(SHADER)</Code> i zwraca
+            kontener bezwzględnie pozycjonowany za treścią strony (
+            <Code>-z-1</Code>). Na wierzchu nakładka z{" "}
+            <Code>radial-gradient</Code> wygaszająca tło ku krawędziom ekranu —
+            efekt "spotlight". Nie przyjmuje żadnych props.
+          </Typography>
         </SubSection>
       </Section>
     </main>
