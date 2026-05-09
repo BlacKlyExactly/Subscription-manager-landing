@@ -39,22 +39,23 @@ export default async function DocsPage() {
         </Typography>
         {[
           ["1. Przegląd projektu", "#overview"],
-          ["2. Stack technologiczny", "#stack"],
-          ["3. Struktura projektu", "#structure"],
-          ["4. Zmienne środowiskowe", "#env"],
-          ["5. Schemat bazy danych", "#schema"],
-          ["6. System autentykacji", "#auth"],
-          ["7. Zarządzanie sesjami", "#sessions"],
-          ["8. Plany i limitowanie funkcji", "#plans"],
-          ["9. Server Actions", "#actions"],
-          ["10. Zapytania (Queries)", "#queries"],
-          ["11. API Routes", "#api"],
-          ["12. Schematy walidacji (Zod)", "#validation"],
-          ["13. Kluczowe komponenty", "#components"],
-          ["14. System e-mail", "#email"],
-          ["15. Eksport CSV", "#csv"],
-          ["16. Szablony subskrypcji", "#templates"],
-          ["17. Uruchomienie lokalne", "#setup"],
+          ["2. Historie użytkownika", "#user-stories"],
+          ["3. Stack technologiczny", "#stack"],
+          ["4. Struktura projektu", "#structure"],
+          ["5. Zmienne środowiskowe", "#env"],
+          ["6. Schemat bazy danych", "#schema"],
+          ["7. System autentykacji", "#auth"],
+          ["8. Zarządzanie sesjami", "#sessions"],
+          ["9. Plany i limitowanie funkcji", "#plans"],
+          ["10. Server Actions", "#actions"],
+          ["11. Zapytania (Queries)", "#queries"],
+          ["12. API Routes", "#api"],
+          ["13. Schematy walidacji (Zod)", "#validation"],
+          ["14. Kluczowe komponenty", "#components"],
+          ["15. System e-mail", "#email"],
+          ["16. Eksport CSV", "#csv"],
+          ["17. Szablony subskrypcji", "#templates"],
+          ["18. Uruchomienie lokalne", "#setup"],
         ].map(([label, href]) => (
           <a
             key={href}
@@ -99,7 +100,285 @@ export default async function DocsPage() {
           />
         </SubSection>
       </Section>
-      <Section id="stack" title="2. Stack technologiczny">
+      <Section id="user-stories" title="2. Historie użytkownika">
+        <Typography>
+          Historie użytkownika opisują funkcje aplikacji z perspektywy końcowego
+          odbiorcy. Format: <em>Jako [rola] chcę [cel], aby [korzyść]</em>.
+        </Typography>
+
+        <SubSection title="Rejestracja i weryfikacja konta">
+          {[
+            {
+              id: "US-01",
+              story:
+                "Jako nowy użytkownik chcę zarejestrować się podając imię, e-mail i hasło, aby założyć konto w aplikacji.",
+              acceptance: [
+                "Formularz waliduje poprawność e-maila i siłę hasła (min. 8 znaków, duże/małe litery, cyfra, znak specjalny).",
+                "Po rejestracji użytkownik trafia na stronę potwierdzenia i otrzymuje e-mail aktywacyjny.",
+                "Próba rejestracji na istniejący e-mail zwraca czytelny komunikat błędu.",
+              ],
+            },
+            {
+              id: "US-02",
+              story:
+                "Jako zarejestrowany użytkownik chcę aktywować konto klikając link w e-mailu, aby móc się zalogować.",
+              acceptance: [
+                "Link aktywacyjny jest ważny przez 24 godziny.",
+                "Po pomyślnej weryfikacji konto zostaje oznaczone jako aktywne, a token usunięty z bazy.",
+                "Wygasły lub nieistniejący token wyświetla stosowny komunikat błędu.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Logowanie i wylogowanie">
+          {[
+            {
+              id: "US-03",
+              story:
+                "Jako aktywowany użytkownik chcę zalogować się e-mailem i hasłem, aby uzyskać dostęp do mojego panelu.",
+              acceptance: [
+                "Sesja jest ważna przez 7 dni i przechowywana w bezpiecznym cookie HttpOnly.",
+                "Błędne dane logowania lub niezweryfikowane konto zwracają odpowiedni komunikat.",
+                "Po zalogowaniu użytkownik jest przekierowywany na dashboard.",
+              ],
+            },
+            {
+              id: "US-04",
+              story:
+                "Jako zalogowany użytkownik chcę się wylogować, aby zabezpieczyć swoje konto na współdzielonym urządzeniu.",
+              acceptance: [
+                "Wylogowanie usuwa rekord sesji z bazy danych.",
+                "Cookie sesji jest natychmiast usuwane.",
+                "Użytkownik zostaje przekierowany na stronę logowania.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Zarządzanie subskrypcjami">
+          {[
+            {
+              id: "US-05",
+              story:
+                "Jako zalogowany użytkownik chcę dodać nową subskrypcję ręcznie (nazwa, cena, cykl, data odnowienia), aby śledzić cykliczne opłaty.",
+              acceptance: [
+                "Formularz waliduje wszystkie wymagane pola po stronie klienta i serwera.",
+                "Cena jest przechowywana w groszach, co eliminuje błędy zmiennoprzecinkowe.",
+                "Użytkownik Starter może dodać maksymalnie 5 subskrypcji — próba dodania szóstej zwraca błąd.",
+              ],
+            },
+            {
+              id: "US-06",
+              story:
+                "Jako zalogowany użytkownik chcę wybrać subskrypcję z katalogu szablonów, aby szybko dodać popularny serwis z predefiniowanymi danymi.",
+              acceptance: [
+                "Katalog zawiera 30+ serwisów pogrupowanych w kategorie (streaming, muzyka, software itp.).",
+                "Wybranie serwisu i pakietu automatycznie wypełnia formularz (nazwa, emoji, kategoria, cena, cykl).",
+                "Użytkownik może zmodyfikować predefiniowane wartości przed zapisaniem.",
+              ],
+            },
+            {
+              id: "US-07",
+              story:
+                "Jako zalogowany użytkownik chcę edytować istniejącą subskrypcję, aby zaktualizować jej dane po zmianie ceny lub planu.",
+              acceptance: [
+                "Edycja jest dostępna wyłącznie dla subskrypcji należących do zalogowanego użytkownika.",
+                "Walidacja działa identycznie jak przy tworzeniu.",
+                "Zmiany są natychmiast widoczne na liście po zapisaniu.",
+              ],
+            },
+            {
+              id: "US-08",
+              story:
+                "Jako zalogowany użytkownik chcę usunąć subskrypcję, aby usunąć usługę, z której już nie korzystam.",
+              acceptance: [
+                "Usunięcie jest nieodwracalne — aplikacja powinna to jasno komunikować.",
+                "Usunąć można wyłącznie własne subskrypcje.",
+                "Lista subskrypcji aktualizuje się natychmiast po usunięciu.",
+              ],
+            },
+            {
+              id: "US-09",
+              story:
+                "Jako zalogowany użytkownik chcę wstrzymać subskrypcję bez jej usuwania, aby tymczasowo wykluczyć ją ze statystyk.",
+              acceptance: [
+                "Wstrzymana subskrypcja jest widoczna na liście z wyraźnym oznaczeniem statusu.",
+                "Wstrzymane subskrypcje nie są uwzględniane w obliczeniach sum miesięcznych i rocznych.",
+                "Użytkownik może w każdej chwili wznowić wstrzymaną subskrypcję.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Dashboard i statystyki">
+          {[
+            {
+              id: "US-10",
+              story:
+                "Jako zalogowany użytkownik chcę zobaczyć podsumowanie moich wydatków na subskrypcje, aby wiedzieć ile miesięcznie i rocznie płacę.",
+              acceptance: [
+                "Dashboard wyświetla: sumę miesięczną, roczną, liczbę aktywnych i wstrzymanych subskrypcji.",
+                "Pokazana jest liczba dni do najbliższego odnowienia.",
+                "Kwoty są przeliczane z cyklu tygodniowego/rocznego na ekwiwalent miesięczny.",
+              ],
+            },
+            {
+              id: "US-11",
+              story:
+                "Jako użytkownik Pro chcę zobaczyć wykresy wydatków według kategorii i kosztów, aby lepiej zrozumieć strukturę moich subskrypcji.",
+              acceptance: [
+                "Wykres kołowy grupuje aktywne subskrypcje po kategorii z sumą miesięczną.",
+                "Wykres słupkowy pokazuje top 8 subskrypcji według kosztu miesięcznego.",
+                "Użytkownik Starter widzi rozmyte wykresy z zaproszeniem do upgrade.",
+              ],
+            },
+            {
+              id: "US-12",
+              story:
+                "Jako użytkownik Pro chcę zobaczyć oś czasu odnowień, aby wiedzieć które subskrypcje odnowią się w najbliższych dniach.",
+              acceptance: [
+                "Oś czasu pokazuje subskrypcje odnawiające się w ciągu 7 dni.",
+                "Wiersze są kolorowane według pilności: dziś, jutro, wkrótce.",
+                "Użytkownik Starter widzi blokadę z informacją o planie Pro.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Powiadomienia e-mail">
+          {[
+            {
+              id: "US-13",
+              story:
+                "Jako zalogowany użytkownik chcę otrzymywać e-mail z przypomnieniem 3 dni przed odnowieniem subskrypcji, aby nie być zaskoczonym obciążeniem.",
+              acceptance: [
+                "E-mail zawiera listę wszystkich subskrypcji odnawiających się w ciągu 3 dni (nazwa, emoji, cena, data).",
+                "Przypomnienia są wysyłane automatycznie codziennie o 8:00 UTC przez cron job.",
+                "E-mail jest wysyłany do każdego użytkownika z co najmniej jedną taką subskrypcją.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Plan i funkcje Pro">
+          {[
+            {
+              id: "US-14",
+              story:
+                "Jako użytkownik Starter chcę przejść na plan Pro, aby odblokować wykresy, oś czasu i eksport CSV.",
+              acceptance: [
+                "Zmiana planu jest natychmiastowa (projekt demonstracyjny — bez płatności).",
+                "Po zmianie planu interfejs aktualizuje się bez przeładowania strony.",
+                "Użytkownik może w każdej chwili wrócić do planu Starter.",
+              ],
+            },
+            {
+              id: "US-15",
+              story:
+                "Jako użytkownik Pro chcę wyeksportować listę moich subskrypcji do pliku CSV, aby przeanalizować dane w arkuszu kalkulacyjnym.",
+              acceptance: [
+                "Eksport zawiera kolumny: nazwa, emoji, kategoria, cena, cykl, ekwiwalent miesięczny, data odnowienia, status, notatki.",
+                "Plik jest generowany po stronie klienta — bez żadnego żądania do serwera.",
+                "Plik zawiera BOM UTF-8 zapewniający poprawne wyświetlanie polskich znaków w Excel.",
+                "Użytkownik Starter widzi toast z informacją o wymaganym planie Pro.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Ustawienia konta">
+          {[
+            {
+              id: "US-16",
+              story:
+                "Jako zalogowany użytkownik chcę zmienić swoją nazwę wyświetlaną, aby mieć aktualne dane w profilu.",
+              acceptance: [
+                "Nowa nazwa musi mieć 1–100 znaków.",
+                "Zmiana jest widoczna natychmiast po zapisaniu.",
+              ],
+            },
+            {
+              id: "US-17",
+              story:
+                "Jako zalogowany użytkownik chcę zmienić hasło podając aktualne hasło i nowe hasło dwukrotnie, aby zabezpieczyć konto.",
+              acceptance: [
+                "Aktualne hasło jest weryfikowane przez argon2 przed zmianą.",
+                "Nowe hasło musi spełniać wymagania siły (min. 8 znaków, duże/małe, cyfra, znak specjalny).",
+                "Oba pola nowego hasła muszą być identyczne.",
+              ],
+            },
+            {
+              id: "US-18",
+              story:
+                "Jako zalogowany użytkownik chcę trwale usunąć swoje konto, aby usunąć wszystkie moje dane z aplikacji.",
+              acceptance: [
+                "Usunięcie konta usuwa kaskadowo: sesje, subskrypcje i tokeny aktywacyjne.",
+                "Sekcja usuwania konta jest wyraźnie oddzielona i wizualnie ostrzega o nieodwracalności operacji.",
+                "Po usunięciu cookie sesji jest usuwane, a użytkownik wylogowywany.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Wygląd i dostępność">
+          {[
+            {
+              id: "US-19",
+              story:
+                "Jako użytkownik chcę przełączać między trybem ciemnym a jasnym, aby dostosować wygląd aplikacji do swoich preferencji.",
+              acceptance: [
+                "Przełącznik trybu jest widoczny w nawigacji.",
+                "Wybór jest zapamiętywany między sesjami przeglądarki.",
+              ],
+            },
+            {
+              id: "US-20",
+              story:
+                "Jako użytkownik mobilny chcę wygodnie korzystać z aplikacji na smartfonie, aby zarządzać subskrypcjami w dowolnym miejscu.",
+              acceptance: [
+                "Nawigacja na mobile jest dostępna przez menu hamburger.",
+                "Wszystkie kluczowe funkcje (dodawanie, edycja, statystyki) są dostępne i używalne na małych ekranach.",
+                "Tabele i wykresy mają obsługę przewijania poziomego na wąskich ekranach.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+
+        <SubSection title="Kontakt">
+          {[
+            {
+              id: "US-21",
+              story:
+                "Jako użytkownik chcę wysłać wiadomość do twórców aplikacji przez formularz kontaktowy, aby zgłosić problem lub zadać pytanie.",
+              acceptance: [
+                "Formularz wymaga imienia, e-maila i wiadomości (min. 10, maks. 2000 znaków).",
+                "Po wysłaniu wiadomość trafia jako embed na kanał Discord przez webhook.",
+                "Użytkownik widzi potwierdzenie wysłania lub komunikat błędu.",
+              ],
+            },
+          ].map((us) => (
+            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+          ))}
+        </SubSection>
+      </Section>
+      <Section id="stack" title="3. Stack technologiczny">
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -143,7 +422,7 @@ export default async function DocsPage() {
           </table>
         </div>
       </Section>
-      <Section id="structure" title="3. Struktura projektu">
+      <Section id="structure" title="4. Struktura projektu">
         <Typography>
           Projekt wykorzystuje Next.js App Router. Poniżej przedstawiona jest
           uproszczona struktura katalogów:
@@ -229,7 +508,7 @@ export default async function DocsPage() {
     ├── activation.tsx
     └── renewal-reminder.tsx`}</CodeBlock>
       </Section>
-      <Section id="env" title="4. Zmienne środowiskowe">
+      <Section id="env" title="5. Zmienne środowiskowe">
         <Typography>
           Plik <Code>.env.local</Code> musi zawierać następujące zmienne:
         </Typography>
@@ -255,7 +534,7 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
           automatycznie generowany URL Vercela zamiast na Twoją domenę.
         </Typography>
       </Section>
-      <Section id="schema" title="5. Schemat bazy danych">
+      <Section id="schema" title="6. Schemat bazy danych">
         <Typography>
           Baza danych PostgreSQL zarządzana przez Drizzle ORM. Wszystkie tabele
           mają prefix <Code>sm_</Code>.
@@ -343,7 +622,7 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
           />
         </SubSection>
       </Section>
-      <Section id="auth" title="6. System autentykacji">
+      <Section id="auth" title="7. System autentykacji">
         <Typography>
           Autentykacja opiera się na własnej implementacji bez zewnętrznych
           providerów (NextAuth itp.).
@@ -447,7 +726,7 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
 }`}</CodeBlock>
         </SubSection>
       </Section>
-      <Section id="sessions" title="7. Zarządzanie sesjami">
+      <Section id="sessions" title="8. Zarządzanie sesjami">
         <SubSection title="getCurrentUserQuery">
           <Typography>
             Główna funkcja autentykacji używana w Server Components i Server
@@ -479,7 +758,7 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
           </Typography>
         </SubSection>
       </Section>
-      <Section id="plans" title="8. Plany i limitowanie funkcji">
+      <Section id="plans" title="9. Plany i limitowanie funkcji">
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -537,7 +816,7 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
           </Typography>
         </SubSection>
       </Section>
-      <Section id="actions" title="9. Server Actions">
+      <Section id="actions" title="10. Server Actions">
         <Typography>
           Wszystkie Server Actions zwracają <Code>ActionResult&lt;T&gt;</Code>:
         </Typography>
@@ -634,7 +913,7 @@ Result.error(message)  // → ErrorResult`}</CodeBlock>
           </div>
         ))}
       </Section>
-      <Section id="queries" title="10. Zapytania (Queries)">
+      <Section id="queries" title="11. Zapytania (Queries)">
         <SubSection title="getCurrentUserQuery()">
           <Typography>
             Plik: <Code>queries/getCurrentUser.ts</Code>. Opisana szczegółowo w
@@ -665,7 +944,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
 > extends (infer T)[] | null ? T : never`}</CodeBlock>
         </SubSection>
       </Section>
-      <Section id="api" title="11. API Routes">
+      <Section id="api" title="12. API Routes">
         <SubSection title="GET /api/cron/reminders">
           <Typography>
             Plik: <Code>app/api/cron/reminders/route.ts</Code>
@@ -705,7 +984,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
 }`}</CodeBlock>
         </SubSection>
       </Section>
-      <Section id="validation" title="12. Schematy walidacji (Zod)">
+      <Section id="validation" title="13. Schematy walidacji (Zod)">
         {[
           {
             name: "loginFormSchema",
@@ -774,7 +1053,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
           />
         </SubSection>
       </Section>
-      <Section id="components" title="13. Kluczowe komponenty">
+      <Section id="components" title="14. Kluczowe komponenty">
         <SubSection title="StatsCards">
           <Typography>
             Oblicza na podstawie tablicy subskrypcji: sumę miesięczną, roczną,
@@ -843,7 +1122,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
           </Typography>
         </SubSection>
       </Section>
-      <Section id="email" title="14. System e-mail">
+      <Section id="email" title="15. System e-mail">
         <Typography>
           E-maile wysyłane są przez <strong>Resend</strong> z szablonami
           zbudowanymi w <strong>React Email</strong>.
@@ -870,7 +1149,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
 # → http://localhost:3001`}</CodeBlock>
         </SubSection>
       </Section>
-      <Section id="csv" title="15. Eksport CSV">
+      <Section id="csv" title="16. Eksport CSV">
         <Typography>
           Eksport dostępny tylko dla użytkowników Pro. Generowany po stronie
           klienta (bez żadnego endpointu serwera).
@@ -897,7 +1176,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
           <Code>subskrypcje-YYYY-MM-DD.csv</Code>.
         </Typography>
       </Section>
-      <Section id="templates" title="16. Szablony subskrypcji">
+      <Section id="templates" title="17. Szablony subskrypcji">
         <Typography>
           Plik <Code>lib/subscription-templates.ts</Code> zawiera 30+
           predefiniowanych serwisów z cenami (PLN) i wariantami planów.
@@ -941,7 +1220,7 @@ ORDER BY nextRenewalDate ASC`}</CodeBlock>
           (nazwa pakietu, cena w PLN, cykl rozliczeniowy).
         </Typography>
       </Section>
-      <Section id="setup" title="17. Uruchomienie lokalne">
+      <Section id="setup" title="18. Uruchomienie lokalne">
         <SubSection title="Wymagania">
           <List
             items={[
@@ -985,6 +1264,37 @@ npm run start`}</CodeBlock>
         </SubSection>
       </Section>
     </main>
+  );
+}
+
+function UserStory({
+  id,
+  story,
+  acceptance,
+}: {
+  id: string;
+  story: string;
+  acceptance: string[];
+}) {
+  return (
+    <div className="border border-foreground/10 rounded-xl p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-mono font-semibold bg-primary/10 text-primary rounded px-2 py-0.5 shrink-0">
+          {id}
+        </span>
+        <Typography className="text-sm font-medium">{story}</Typography>
+      </div>
+      <div className="space-y-1">
+        <Typography className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+          Kryteria akceptacji
+        </Typography>
+        <ul className="space-y-1 list-disc list-inside text-sm text-foreground/80">
+          {acceptance.map((criterion, i) => (
+            <li key={i}>{criterion}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
