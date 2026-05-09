@@ -56,6 +56,11 @@ export default async function DocsPage() {
           ["16. Eksport CSV", "#csv"],
           ["17. Szablony subskrypcji", "#templates"],
           ["18. Uruchomienie lokalne", "#setup"],
+          ["19. Funkcje pomocnicze", "#utils"],
+          ["20. Tryb ciemny", "#darkmode"],
+          ["21. Deployment (Vercel)", "#deployment"],
+          ["22. SEO i Metadata", "#seo"],
+          ["23. Typy TypeScript", "#types"],
         ].map(([label, href]) => (
           <a
             key={href}
@@ -129,7 +134,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -156,7 +166,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -213,7 +228,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -250,7 +270,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -267,7 +292,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -295,7 +325,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -331,7 +366,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -357,7 +397,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
 
@@ -374,7 +419,12 @@ export default async function DocsPage() {
               ],
             },
           ].map((us) => (
-            <UserStory key={us.id} id={us.id} story={us.story} acceptance={us.acceptance} />
+            <UserStory
+              key={us.id}
+              id={us.id}
+              story={us.story}
+              acceptance={us.acceptance}
+            />
           ))}
         </SubSection>
       </Section>
@@ -409,6 +459,7 @@ export default async function DocsPage() {
                 ["Drawer/modal", "Vaul", "^1.1"],
                 ["Karuzela", "Embla Carousel", "^8.6"],
                 ["Ikony", "Lucide React", "^1.7"],
+                ["Tryb ciemny", "next-themes", "^0.4"],
               ].map(([layer, tech, version]) => (
                 <tr key={layer} className="border-b border-foreground/5">
                   <td className="py-2 pr-4 font-medium">{layer}</td>
@@ -421,6 +472,18 @@ export default async function DocsPage() {
             </tbody>
           </table>
         </div>
+        <Typography className="text-sm text-muted-foreground">
+          Strona dokumentacji używa{" "}
+          <a
+            href="https://shiki.style"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-2"
+          >
+            Shiki
+          </a>{" "}
+          do kolorowania składni bloków kodu.
+        </Typography>
       </Section>
       <Section id="structure" title="4. Struktura projektu">
         <Typography>
@@ -607,6 +670,26 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
             49,99 zł → 4999). Unika to błędów zmiennoprzecinkowych przy
             obliczeniach. Konwersja: <Code>price / 100</Code>. Kaskadowe
             usunięcie — usunięcie użytkownika usuwa wszystkie jego subskrypcje.
+          </Typography>
+        </SubSection>
+        <SubSection title="drizzle.config.ts">
+          <CodeBlock lang="ts">{`import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  dialect: "postgresql",
+  schema: "./lib/drizzle/schema.ts",  // źródło tabel
+  out: "./migrations",                 // katalog na wygenerowane SQL
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+});`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            Plik wczytuje <Code>.env.local</Code> przez <Code>dotenv</Code>{" "}
+            przed importem konfiguracji, dzięki czemu <Code>DATABASE_URL</Code>{" "}
+            jest dostępne podczas działania drizzle-kit. Komenda{" "}
+            <Code>npx drizzle-kit push</Code> synchronizuje schemat z bazy
+            danych bezpośrednio ze schematu TypeScript — bez generowania plików
+            migracji.
           </Typography>
         </SubSection>
         <SubSection title="Relacje (Drizzle Relations)">
@@ -820,98 +903,166 @@ NEXT_PUBLIC_APP_URL=https://twoja-domena.com`}</CodeBlock>
         <Typography>
           Wszystkie Server Actions zwracają <Code>ActionResult&lt;T&gt;</Code>:
         </Typography>
-        <CodeBlock lang="ts">{`type OkResult<T>    = { success: true; data: T }
-type ErrorResult    = { success: false; error: string }
-type ActionResult<T> = OkResult<T> | ErrorResult
+        <CodeBlock lang="ts">{`// actions/index.ts
+export type OkResult<T>     = { success: true; data: T };
+export type ErrorResult     = { success: false; error: string };
+export type ActionResult<T> = OkResult<T> | ErrorResult;
 
-// Helpers:
-Result.ok(data)        // → OkResult
-Result.error(message)  // → ErrorResult`}</CodeBlock>
+export const Result = {
+  ok: <T>(data: T): ActionResult<T> => ({ success: true, data }) as const,
+  error: (error: string): ErrorResult => ({ success: false, error }),
+};`}</CodeBlock>
 
         {[
           {
-            name: "registerAction(data)",
+            fn: "registerAction",
+            params: ["data: RegisterFormProps"],
             file: "actions/register.tsx",
+            returns: "ErrorResult | redirect('/register-success')",
             desc: "Walidacja Zod → hash argon2 → INSERT users → INSERT activation_tokens → Resend e-mail → redirect /register-success. Obsługuje duplikat e-mail (pg error code 23505).",
           },
           {
-            name: "verifyActivationTokenAction(token)",
+            fn: "verifyActivationTokenAction",
+            params: ["token: string"],
             file: "actions/verifyActivationToken.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Hash SHA-256 tokenu → szukaj w activation_tokens → sprawdź expiresAt → transakcja: UPDATE users SET activated=true + DELETE activation_tokens.",
           },
           {
-            name: "loginAction(data)",
+            fn: "loginAction",
+            params: ["data: LoginFormProps"],
             file: "actions/login.ts",
+            returns: "OkResult<{ id, name, email, activated, plan }> | ErrorResult",
             desc: "Walidacja → znajdź usera → argon2.verify → sprawdź activated → INSERT session → set cookie → return user bez passwordHash.",
           },
           {
-            name: "logoutAction()",
+            fn: "logoutAction",
+            params: [],
             file: "actions/logout.ts",
+            returns: "OkResult<undefined> | ErrorResult",
             desc: "Hash cookie → DELETE session → delete cookie → revalidatePath('/').",
           },
           {
-            name: "createSubscriptionAction(data)",
+            fn: "createSubscriptionAction",
+            params: ["data: SubscriptionFormProps"],
             file: "actions/subscription.ts",
+            returns: "OkResult<Subscription> | ErrorResult",
             desc: "Auth → walidacja → (Starter) COUNT subscriptions, jeśli ≥ 5 error → INSERT subscription (cena w groszach: Math.round(price * 100)) → revalidatePath.",
           },
           {
-            name: "updateSubscriptionAction(id, data)",
+            fn: "updateSubscriptionAction",
+            params: ["id: number", "data: SubscriptionFormProps"],
             file: "actions/subscription.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Auth → walidacja → UPDATE subscription WHERE id AND userId → revalidatePath.",
           },
           {
-            name: "deleteSubscriptionAction(id)",
+            fn: "deleteSubscriptionAction",
+            params: ["id: number"],
             file: "actions/subscription.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Auth → DELETE subscription WHERE id AND userId → revalidatePath.",
           },
           {
-            name: "toggleSubscriptionAction(id, isActive)",
+            fn: "toggleSubscriptionAction",
+            params: ["id: number", "isActive: boolean"],
             file: "actions/subscription.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Auth → UPDATE subscription SET isActive = ? WHERE id AND userId → revalidatePath.",
           },
           {
-            name: "switchPlanAction(plan)",
+            fn: "switchPlanAction",
+            params: ['plan: "starter" | "pro"'],
             file: "actions/plan.ts",
+            returns: 'OkResult<{ plan: "starter" | "pro" }> | ErrorResult',
             desc: "Auth → sprawdź czy plan się różni → UPDATE users SET plan = ? → revalidatePath('/dashboard/billing').",
           },
           {
-            name: "updateNameAction(data)",
+            fn: "updateNameAction",
+            params: ["data: UpdateNameInput"],
             file: "actions/account.ts",
+            returns: "OkResult<{ name: string }> | ErrorResult",
             desc: "Auth → walidacja → UPDATE users SET name = ? → revalidatePath.",
           },
           {
-            name: "updatePasswordAction(data)",
+            fn: "updatePasswordAction",
+            params: ["data: UpdatePasswordInput"],
             file: "actions/account.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Auth → pobierz pełny rekord usera → argon2.verify(currentPassword) → argon2.hash(newPassword) → UPDATE users SET passwordHash = ?.",
           },
           {
-            name: "deleteAccountAction()",
+            fn: "deleteAccountAction",
+            params: [],
             file: "actions/account.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Auth → DELETE users (kaskada: sesje, subskrypcje, tokeny aktywacyjne) → delete cookie → revalidatePath.",
           },
           {
-            name: "sendContactAction(data)",
+            fn: "sendContactAction",
+            params: ["data: ContactFormInput"],
             file: "actions/contact.ts",
+            returns: "OkResult<null> | ErrorResult",
             desc: "Walidacja → POST do DISCORD_WEBHOOK_URL z Discord embed (imię, e-mail, wiadomość, timestamp).",
           },
         ].map((action) => (
           <div
-            key={action.name}
+            key={action.fn}
             className="border border-foreground/10 rounded-xl p-4 space-y-1"
           >
             <div className="flex flex-col gap-1">
-              <code className="text-sm font-mono text-primary break-all">
-                {action.name}
-              </code>
+              <span className="text-sm font-mono text-primary break-all">
+                {action.fn}(
+                {action.params.map((p, i) => (
+                  <span key={p}>
+                    <Code>{p}</Code>
+                    {i < action.params.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+                )
+              </span>
               <span className="text-xs text-muted-foreground font-mono break-all">
                 {action.file}
               </span>
             </div>
+            <span className="text-xs text-muted-foreground py-1 block">
+              zwraca: <Code>{action.returns}</Code>
+            </span>
             <Typography className="text-sm text-muted-foreground">
               {action.desc}
             </Typography>
           </div>
         ))}
+        <SubSection title="Obsługa wyniku w komponentach klienckich">
+          <Typography>
+            Standardowy wzorzec w Client Components — wywołanie akcji wewnątrz{" "}
+            <Code>startTransition</Code> z React, obsługa błędu przez{" "}
+            <Code>toast.error</Code> (Sonner) i opcjonalna aktualizacja{" "}
+            <Code>AuthContext</Code>:
+          </Typography>
+          <CodeBlock lang="ts">{`const [isPending, startTransition] = useTransition();
+
+const onSubmit: SubmitHandler<FormValues> = (data) => {
+  startTransition(async () => {
+    const result = await someAction(data);
+
+    if (!result.success) {
+      toast.error(result.error);   // komunikat z ActionResult.error
+      return;
+    }
+
+    // result.data dostępne tutaj
+    toast.success("Operacja zakończona pomyślnie.");
+  });
+};`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            <Code>useTransition</Code> oznacza akcję jako niepilną — React może
+            przerywać rendering, a <Code>isPending</Code> steruje stanem
+            przycisku Submit (spinner, disabled). Wzorzec stosowany we
+            wszystkich formularzach: logowanie, rejestracja, subskrypcje,
+            ustawienia konta, zmiana planu.
+          </Typography>
+        </SubSection>
       </Section>
       <Section id="queries" title="11. Zapytania (Queries)">
         <SubSection title="getCurrentUserQuery()">
@@ -921,6 +1072,17 @@ Result.error(message)  // → ErrorResult`}</CodeBlock>
             dashboard/page.tsx, billing/page.tsx, account/page.tsx oraz na
             początku każdej Server Action.
           </Typography>
+          <Typography className="text-sm text-muted-foreground">
+            zwraca: <Code>CurrentUser | null</Code> — null jeśli brak cookie,
+            sesja nie istnieje lub wygasła.
+          </Typography>
+          <CodeBlock lang="ts">{`type CurrentUser = {
+  id: number;
+  name: string;
+  email: string;
+  activated: boolean | null;
+  plan: "starter" | "pro";
+}`}</CodeBlock>
         </SubSection>
         <SubSection title="getSubscriptionsQuery()">
           <Typography>
@@ -933,15 +1095,30 @@ Result.error(message)  // → ErrorResult`}</CodeBlock>
           <CodeBlock lang="sql">{`SELECT * FROM sm_subscriptions
 WHERE userId = :userId
 ORDER BY nextRenewalDate ASC`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            zwraca: <Code>Subscription[] | null</Code>
+          </Typography>
         </SubSection>
         <SubSection title="Typ Subscription">
           <Typography>
             Eksportowany z <Code>queries/index.ts</Code>, inferowany z typu
             zwracanego przez <Code>getSubscriptionsQuery</Code>:
           </Typography>
-          <CodeBlock lang="ts">{`export type Subscription = Awaited<
-  ReturnType<typeof getSubscriptionsQuery>
-> extends (infer T)[] | null ? T : never`}</CodeBlock>
+          <CodeBlock lang="ts">{`type Subscription = {
+  id: number;
+  userId: number;
+  name: string;
+  price: number;               // w groszach (PLN × 100)
+  currency: string;            // domyślnie "PLN"
+  billingCycle: "monthly" | "yearly" | "weekly";
+  nextRenewalDate: Date;
+  category: "streaming" | "music" | "software" | "gaming"
+           | "news" | "fitness" | "other" | null;
+  emoji: string | null;
+  notes: string | null;
+  isActive: boolean;
+  createdAt: Date;
+}`}</CodeBlock>
         </SubSection>
       </Section>
       <Section id="api" title="12. API Routes">
@@ -1261,6 +1438,335 @@ npm run start`}</CodeBlock>
         <SubSection title="Testowanie endpointu cron lokalnie">
           <CodeBlock lang="bash">{`curl -H "Authorization: Bearer <CRON_SECRET>" \\
   http://localhost:3000/api/cron/reminders`}</CodeBlock>
+        </SubSection>
+      </Section>
+      <Section id="utils" title="19. Funkcje pomocnicze">
+        <SubSection title="lib/utils.ts">
+          {[
+            {
+              fn: "cn",
+              params: ["...inputs: ClassValue[]"],
+              desc: "Łączy klasy Tailwind przez clsx + tailwind-merge. Eliminuje konflikty klas (np. p-2 vs p-4). Używana w każdym komponencie.",
+            },
+            {
+              fn: "generateToken",
+              params: [],
+              desc: "Generuje kryptograficznie bezpieczny token: randomBytes(32).toString('hex') — 64-znakowy string hex. Używany do tokenów sesji i aktywacyjnych.",
+            },
+            {
+              fn: "hashToken",
+              params: ["token: string"],
+              desc: "Hashuje token przez SHA-256 (createHash('sha256')). Tylko hash trafia do bazy — surowy token nigdy nie jest persystowany.",
+            },
+            {
+              fn: "getExpiryHours",
+              params: ["hours: number"],
+              desc: "Zwraca Date = teraz + podana liczba godzin. Używana przy tworzeniu tokenów: getExpiryHours(24) dla aktywacji, getExpiryHours(168) dla sesji (7 dni).",
+            },
+            {
+              fn: "baseUrl",
+              params: null,
+              desc: "Wyznacza bazowy URL aplikacji: NEXT_PUBLIC_APP_URL → https://${VERCEL_URL} → http://localhost:3000. Używany w linkach e-mailowych.",
+            },
+            {
+              fn: "passwordSchema",
+              params: null,
+              desc: "Zod schema wielokrotnego użytku: min 8 znaków, znak specjalny, mała litera, duża litera, cyfra. Importowana w validation-schemas/register.ts i account.ts.",
+            },
+            {
+              fn: "addPasswordFieldIssue",
+              params: ["field: string", "ctx: z.RefinementCtx"],
+              desc: "Dodaje niestandardowy błąd Zod (ctx.addIssue) do wskazanego pola — używana w superRefine do komunikatu o niezgodności haseł.",
+            },
+          ].map((item) => (
+            <div
+              key={item.fn}
+              className="border border-foreground/10 rounded-xl p-4 space-y-1"
+            >
+              <span className="text-sm font-mono text-primary break-all">
+                {item.params !== null ? (
+                  <>
+                    {item.fn}(
+                    {item.params.map((p, i) => (
+                      <span key={p}>
+                        <Code>{p}</Code>
+                        {i < item.params!.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                    )
+                  </>
+                ) : (
+                  item.fn
+                )}
+              </span>
+              <Typography className="text-sm text-muted-foreground">
+                {item.desc}
+              </Typography>
+            </div>
+          ))}
+        </SubSection>
+        <SubSection title="lib/subscription-utils.ts">
+          {[
+            {
+              fn: "toMonthlyPLN",
+              params: ["sub: Subscription"],
+              desc: "Przelicza cenę subskrypcji na miesięczny ekwiwalent w PLN (po zamianie z groszy): monthly → price/100, yearly → price/100/12, weekly → price/100*52/12. Używana w StatsCards, CategoryChart, CostChart i eksporcie CSV.",
+            },
+            {
+              fn: "formatPLN",
+              params: ["amount: number"],
+              desc: "Formatuje liczbę jako walutę PLN przez Intl.NumberFormat('pl-PL'). Przykład: 49.99 → '49,99 zł'.",
+            },
+            {
+              fn: "daysUntil",
+              params: ["date: Date"],
+              desc: "Zwraca liczbę dni (Math.ceil) między teraz a podaną datą. Wartość ujemna oznacza przeszłość. Używana w StatsCards (następne odnowienie) i RenewalTimeline.",
+            },
+            {
+              fn: "CATEGORY_LABELS",
+              params: null,
+              desc: "Mapa klucz→polska nazwa kategorii: streaming, music→Muzyka, software, gaming→Gry, news→Newsy, fitness, other→Inne. Używana w eksporcie CSV i wykresach.",
+            },
+            {
+              fn: "CATEGORY_COLORS",
+              params: null,
+              desc: "Mapa klucz→kolor hex kategorii (indigo, violet, sky, emerald, amber, red, gray). Używana w CategoryChart do kolorowania wycinków wykresu kołowego.",
+            },
+          ].map((item) => (
+            <div
+              key={item.fn}
+              className="border border-foreground/10 rounded-xl p-4 space-y-1"
+            >
+              <span className="text-sm font-mono text-primary break-all">
+                {item.params !== null ? (
+                  <>
+                    {item.fn}(
+                    {item.params.map((p, i) => (
+                      <span key={p}>
+                        <Code>{p}</Code>
+                        {i < item.params!.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                    )
+                  </>
+                ) : (
+                  item.fn
+                )}
+              </span>
+              <Typography className="text-sm text-muted-foreground">
+                {item.desc}
+              </Typography>
+            </div>
+          ))}
+        </SubSection>
+      </Section>
+      <Section id="darkmode" title="20. Tryb ciemny">
+        <Typography>
+          Tryb ciemny obsługiwany przez bibliotekę <strong>next-themes</strong>.
+          Konfiguracja w <Code>app/layout.tsx</Code>:
+        </Typography>
+        <CodeBlock lang="tsx">{`<ThemeProvider
+  attribute="class"
+  defaultTheme="system"
+  enableSystem
+  disableTransitionOnChange
+>`}</CodeBlock>
+        <Typography>
+          Biblioteka dodaje klasę <Code>dark</Code> do elementu{" "}
+          <Code>{"<html>"}</Code>, co aktywuje wariant <Code>dark:</Code>{" "}
+          Tailwind CSS. Parametr <Code>defaultTheme="system"</Code> oznacza, że
+          przy pierwszym wejściu stosowany jest motyw systemowy użytkownika.{" "}
+          <Code>suppressHydrationWarning</Code> na elemencie{" "}
+          <Code>{"<html>"}</Code> zapobiega błędom hydratacji wynikającym z
+          różnicy server/client przy odczycie preferencji systemowych.
+        </Typography>
+        <Typography>
+          Wybór użytkownika jest zapamiętywany w <Code>localStorage</Code> pod
+          kluczem <Code>theme</Code>. Przełącznik motywu dostępny jest w
+          nawigacji przez komponent w <Code>components/nav.tsx</Code>.
+        </Typography>
+      </Section>
+      <Section id="deployment" title="21. Deployment (Vercel)">
+        <SubSection title="Kroki wdrożenia">
+          <ol className="space-y-2 list-decimal list-inside text-foreground/80 text-base">
+            <li>
+              Połącz repozytorium GitHub z projektem Vercel (Import Project).
+            </li>
+            <li>
+              W panelu projektu →{" "}
+              <strong>Settings → Environment Variables</strong> dodaj wszystkie
+              zmienne z sekcji 5 (<Code>DATABASE_URL</Code>,{" "}
+              <Code>RESEND_API_KEY</Code>, <Code>CRON_SECRET</Code>,{" "}
+              <Code>DISCORD_WEBHOOK_URL</Code>, <Code>NEXT_PUBLIC_APP_URL</Code>
+              ).
+            </li>
+            <li>
+              Upewnij się, że baza PostgreSQL jest dostępna z zewnątrz (np.
+              Neon, Supabase, Railway).
+            </li>
+            <li>Vercel automatycznie wykryje Next.js i skonfiguruje build.</li>
+            <li>
+              Po deploymencie uruchom migracje:{" "}
+              <Code>npx drizzle-kit push</Code> lokalnie z{" "}
+              <Code>DATABASE_URL</Code> wskazującym na produkcyjną bazę.
+            </li>
+          </ol>
+        </SubSection>
+        <SubSection title="vercel.json">
+          <Typography>
+            Plik <Code>vercel.json</Code> w katalogu głównym projektu
+            konfiguruje cron job:
+          </Typography>
+          <CodeBlock lang="json">{`{
+  "crons": [
+    {
+      "path": "/api/cron/reminders",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            Cron job jest wywoływany przez Vercel codziennie o 8:00 UTC.
+            Dostępny wyłącznie w planach Vercel z obsługą Cron Jobs (Hobby i
+            wyżej). Endpoint chroniony jest nagłówkiem{" "}
+            <Code>Authorization: Bearer {"{CRON_SECRET}"}</Code>.
+          </Typography>
+        </SubSection>
+        <SubSection title="Zmienne środowiskowe na Vercel">
+          <Typography className="text-sm text-muted-foreground">
+            Zmienna <Code>NEXT_PUBLIC_APP_URL</Code> powinna wskazywać na
+            docelową domenę produkcyjną (np.{" "}
+            <Code>https://twoja-domena.com</Code>). Bez niej{" "}
+            <Code>baseUrl</Code> z <Code>lib/utils.ts</Code> użyje automatycznie
+            generowanego URLa Vercela (<Code>VERCEL_URL</Code>), co może
+            powodować nieprawidłowe linki aktywacyjne w e-mailach.
+          </Typography>
+        </SubSection>
+      </Section>
+      <Section id="seo" title="22. SEO i Metadata">
+        <Typography>
+          Metadane aplikacji zdefiniowane w <Code>app/layout.tsx</Code> przez
+          obiekt <Code>metadata</Code> Next.js (statyczny export):
+        </Typography>
+        <CodeBlock lang="ts">{`export const metadata: Metadata = {
+  title: {
+    default: "SubTracker — Zarządzaj subskrypcjami",
+    template: "%s | SubTracker",  // np. "Dokumentacja techniczna | SubTracker"
+  },
+  description: "Zbierz wszystkie subskrypcje w jednym miejscu...",
+  keywords: ["subskrypcje", "zarządzanie subskrypcjami", "finanse osobiste", ...],
+  openGraph: {
+    title: "SubTracker — Zarządzaj subskrypcjami",
+    description: "...",
+    type: "website",
+    locale: "pl_PL",
+  },
+};
+
+export const viewport = {
+  themeColor: "#432dd7",  // kolor paska przeglądarki na mobile
+};`}</CodeBlock>
+        <Typography>
+          Poszczególne strony mogą nadpisać tytuł eksportując własny obiekt{" "}
+          <Code>metadata</Code> — np. strona docs eksportuje{" "}
+          <Code>{`{ title: "Dokumentacja techniczna — SubTracker" }`}</Code>, co
+          pomija szablon <Code>template</Code> z root layout i ustawia tytuł
+          dosłownie.
+        </Typography>
+        <Typography className="text-sm text-muted-foreground">
+          OpenGraph umożliwia ładne podglądy linków przy udostępnianiu w mediach
+          społecznościowych. <Code>locale: "pl_PL"</Code> informuje crawlery o
+          języku treści.
+        </Typography>
+      </Section>
+      <Section id="types" title="23. Typy TypeScript">
+        <SubSection title="Typy akcji">
+          <Typography className="text-sm text-muted-foreground">
+            Plik: <Code>actions/index.ts</Code>
+          </Typography>
+          <CodeBlock lang="ts">{`type OkResult<T>     = { success: true; data: T }
+type ErrorResult     = { success: false; error: string }
+type ActionResult<T> = OkResult<T> | ErrorResult`}</CodeBlock>
+        </SubSection>
+        <SubSection title="Typy domenowe">
+          <Typography className="text-sm text-muted-foreground">
+            Plik: <Code>lib/drizzle/schema.ts</Code>
+          </Typography>
+          <CodeBlock lang="ts">{`type Plan         = "starter" | "pro"
+type BillingCycle = "monthly" | "yearly" | "weekly"
+type Category     = "streaming" | "music" | "software" | "gaming"
+                  | "news" | "fitness" | "other"`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            Plik: <Code>queries/getCurrentUser.ts</Code> (inferowany)
+          </Typography>
+          <CodeBlock lang="ts">{`type CurrentUser = {
+  id: number
+  name: string
+  email: string
+  activated: boolean | null
+  plan: Plan
+} | null`}</CodeBlock>
+          <Typography className="text-sm text-muted-foreground">
+            Plik: <Code>queries/getSubscriptions.ts</Code> (inferowany)
+          </Typography>
+          <CodeBlock lang="ts">{`type Subscription = {
+  id: number
+  userId: number
+  name: string
+  price: number           // w groszach (PLN × 100)
+  currency: string
+  billingCycle: BillingCycle
+  nextRenewalDate: Date
+  category: Category | null
+  emoji: string | null
+  notes: string | null
+  isActive: boolean
+  createdAt: Date
+}`}</CodeBlock>
+        </SubSection>
+        <SubSection title="Typy formularzy">
+          <CodeBlock lang="ts">{`// validation-schemas/login.ts
+type LoginFormProps = {
+  email: string
+  password: string
+}
+
+// validation-schemas/register.ts
+type RegisterFormProps = {
+  name: string
+  email: string
+  password: string
+  repeatPassword: string
+}
+
+// validation-schemas/subscription.ts
+type SubscriptionFormProps = {
+  name: string
+  price: number
+  billingCycle: "monthly" | "yearly" | "weekly"
+  nextRenewalDate: string
+  category?: Category
+  emoji?: string
+  notes?: string
+}
+
+// validation-schemas/account.ts
+type UpdateNameInput = {
+  name: string
+}
+
+type UpdatePasswordInput = {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+// validation-schemas/contact.ts
+type ContactFormInput = {
+  name: string
+  email: string
+  message: string
+}`}</CodeBlock>
         </SubSection>
       </Section>
     </main>
