@@ -23,11 +23,11 @@ const plans = [
     features: [
       `Do ${STARTER_LIMIT} subskrypcji`,
       "Podstawowe statystyki",
-      "Eksport danych (CSV)",
       "Powiadomienia e-mail",
     ],
     unavailable: [
       "Zaawansowane wykresy",
+      "Eksport danych (CSV)",
       "Nieograniczone subskrypcje",
       "Priorytetowe wsparcie",
     ],
